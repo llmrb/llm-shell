@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+def wait
+  Process.wait
+rescue Interrupt
+  retry
+end
+
+def libexec
+  File.realpath File.join(__dir__, "..", "libexec", "llm-shell")
+end
+
+def main(argv)
+  Process.spawn File.join(libexec, "shell"), *ARGV[0..]
+  Process.wait
+rescue Interrupt
+  wait
+end
+main(ARGV)

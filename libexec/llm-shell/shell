@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../../lib/llm/shell"
+
+def main(argv)
+  options = {}
+  option_parser.parse(argv, into: options)
+  if argv.empty?
+    warn option_parser.help
+    throw(:exit, 1)
+  else
+    LLM::Shell.new(options).repl
+  end
+end
+
+def option_parser
+  OptionParser.new do |o|
+    o.banner = "Usage: llm-shell [OPTIONS]"
+    o.on("-p PROVIDER", "--provider NAME", "LLM provider", String)
+    o.on("-m [MODEL]", "--model [MODEL]", "LLM model", Array)
+    o.on("-t [TOKEN]", "--token [TOKEN]", "LLM token", String)
+    o.on("-h [HOST]", "--host [HOST]", "LLM host", String)
+    o.on("-f [GLOB]", "--files [GLOB]", "Glob pattern", Array)
+  end
+end
+
+excode = catch(:exit) {
+  main(ARGV)
+  0
+}
+exit excode
