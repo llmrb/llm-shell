@@ -1,20 +1,13 @@
 # frozen_string_literal: true
 
-module LLM
-end unless defined?(LLM)
-
-class LLM::Message
-  def user?
-    role == "user"
-  end
-end
+require "optparse"
+require "readline"
+require "llm"
+require "io/line"
+require "paint"
 
 class LLM::Shell
-  require "optparse"
-  require "readline"
-  require "llm"
-  require "io/line"
-  require "paint"
+  require_relative "shell/formatter"
 
   def initialize(options)
     @provider = options.delete(:provider)
@@ -27,44 +20,37 @@ class LLM::Shell
   end
 
   def start
-    setup
-    repl
+    setup_bot
+    start_loop
   end
 
   private
 
-  def setup
+  def setup_bot
     bot.chat default_prompt, default_role
     files.each { bot.chat File.read(_1) }
     bot.messages.each(&:read!)
     console.clear_screen
   end
 
-  def repl
+  def start_loop
     loop do
       input = Readline.readline("llm> ", true) || throw(:exit, 0)
       bot.chat(input)
       console.clear_screen
-      line.rewind.print Paint["Thinking", :bold]
-      emit(bot.messages.unread.select(&:user?), rewind: true, color: :yellow, padding: 2)
-      emit(bot.messages.unread.select(&:assistant?), rewind: false, color: :green)
+      line.rewind.print(Paint["Thinking", :bold])
+      [messages = unread, line.rewind]
+      print formatter(messages).format!(:user)
+      print formatter(messages).format!(:assistant)
     rescue LLM::Error::ResponseError => ex
-      print Paint[ex.response.class, :red], ":", "\n"
+      print Paint[ex.response.class, :red], "\n"
       print ex.response.body, "\n"
-    rescue
-      print Paint[ex.response, :red], ":", "\n"
+    rescue => ex
+      print Paint[ex.class, :red], "\n"
       print ex.message, "\n"
+      print ex.backtrace[0..5].join("\n")
     rescue Interrupt
       throw(:exit, 0)
-    end
-  end
-
-  def emit(messages, rewind: false, color: :yellow, padding: 1)
-    messages.each do |message|
-      line.rewind if rewind
-      print Paint[message.role, :bold, color], " says: ", "\n"
-      print wrap(message.content), "\n" * padding
-      message.read!
     end
   end
 
@@ -80,29 +66,14 @@ class LLM::Shell
     "Do not provide long answers."
   end
 
-  def wrap(text, width = 80)
-    c = 0
-    words = text.split(/ /)
-    words.each_with_object(StringIO.new) do |word, io|
-      c += word.length
-      if word.empty?
-        io << "\n"
-        c = 0
-      elsif c >= width
-        io << "\n" << word << " "
-        c = 0
-      else
-        io << word << " "
-      end
-    end.string
-  end
-
+  def formatter(messages) = Formatter.new(messages)
   def llm = LLM.method(@provider).call(token, **options)
   def bot = @bot
+  def unread = @bot.messages.unread
   def provider = @provider
   def token = @token
   def files = @files
   def options = @options
-  def console = console
+  def console = @console
   def line = @line
 end

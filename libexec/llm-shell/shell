@@ -10,7 +10,7 @@ def main(argv)
     warn option_parser.help
     throw(:exit, 1)
   else
-    LLM::Shell.new(options).repl
+    LLM::Shell.new(options).start
   end
 end
 
