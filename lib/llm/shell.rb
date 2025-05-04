@@ -8,6 +8,7 @@ require "paint"
 
 class LLM::Shell
   require_relative "shell/formatter"
+  require_relative "shell/default"
 
   def initialize(options)
     @provider = options.delete(:provider)
@@ -17,6 +18,7 @@ class LLM::Shell
     @bot = LLM::Chat.new(llm).lazy
     @console = IO.console
     @line = IO::Line.new($stdout)
+    @default = Default.new(provider)
   end
 
   def start
@@ -26,8 +28,21 @@ class LLM::Shell
 
   private
 
+  attr_reader :bot,
+              :token,
+              :files,
+              :options,
+              :console,
+              :default,
+              :line
+
+  def formatter(messages) = Formatter.new(messages)
+  def unread = @bot.messages.unread
+  def provider = LLM.method(@provider)
+  def llm = provider.call(token, **options)
+
   def setup_bot
-    bot.chat default_prompt, default_role
+    bot.chat default.prompt, default.role
     files.each { bot.chat File.read(_1) }
     bot.messages.each(&:read!)
     console.clear_screen
@@ -53,27 +68,4 @@ class LLM::Shell
       throw(:exit, 0)
     end
   end
-
-  def default_role
-    :system
-  end
-
-  def default_prompt
-    "You are a helpful assistant." \
-    "Answer the user's questions as best as you can." \
-    "The user's environment is a terminal." \
-    "Provide short and concise answers that are suitable for a terminal." \
-    "Do not provide long answers."
-  end
-
-  def formatter(messages) = Formatter.new(messages)
-  def llm = LLM.method(@provider).call(token, **options)
-  def bot = @bot
-  def unread = @bot.messages.unread
-  def provider = @provider
-  def token = @token
-  def files = @files
-  def options = @options
-  def console = @console
-  def line = @line
 end
