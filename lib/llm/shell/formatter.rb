@@ -8,9 +8,9 @@ class LLM::Shell
 
     def format!(role)
       if role == :user
-        format(messages.select(&:user?), color: :yellow)
+        format(messages.select(&:user?), color: :yellow, padding: 2)
       elsif role == :assistant
-        format(messages.select(&:assistant?), color: :green, padding: 2)
+        format(messages.select(&:assistant?), color: :green)
       else
         raise ArgumentError, "unknown role: #{role}"
       end
