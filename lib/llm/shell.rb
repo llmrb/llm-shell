@@ -16,7 +16,7 @@ class LLM::Shell
     @options = Options.new(options)
     @default = Default.new(provider)
     @bot = LLM::Chat.new(llm).lazy
-    @loop = Loop.new(bot, default: @default, options: @options)
+    @loop = Loop.new(@bot, default: @default, options: @options)
   end
 
   def start
@@ -26,9 +26,7 @@ class LLM::Shell
 
   private
 
-  attr_reader :bot,
-              :options,
-              :default,
+  attr_reader :options,
               :loop
 
   def provider = LLM.method(options.provider)

@@ -14,18 +14,12 @@ class LLM::Shell
       bot.chat default.prompt, default.role
       files.each { bot.chat File.read(_1) }
       bot.messages.each(&:read!)
-      console.clear_screen
+      clear_screen
     end
 
     def start
       loop do
-        input = Readline.readline("llm> ", true) || throw(:exit, 0)
-        bot.chat(input)
-        console.clear_screen
-        line.rewind.print(Paint["Thinking", :bold])
-        [messages = unread, line.rewind]
-        print formatter(messages).format!(:user)
-        print formatter(messages).format!(:assistant)
+        emit read(bot)
       rescue LLM::Error::ResponseError => ex
         print Paint[ex.response.class, :red], "\n"
         print ex.response.body, "\n"
@@ -49,5 +43,20 @@ class LLM::Shell
     def formatter(messages) = Formatter.new(messages)
     def unread = bot.messages.unread
     def files = @options.files
+    def clear_screen = console.clear_screen
+
+    def read(bot)
+      input = Readline.readline("llm> ", true) || throw(:exit, 0)
+      bot.chat(input)
+      clear_screen
+      line.rewind.print(Paint["Thinking", :bold])
+      [messages = unread, line.rewind]
+      messages
+    end
+
+    def emit(messages)
+      print formatter(messages).format!(:user)
+      print formatter(messages).format!(:assistant)
+    end
   end
 end
