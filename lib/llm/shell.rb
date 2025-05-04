@@ -9,12 +9,10 @@ require "paint"
 class LLM::Shell
   require_relative "shell/formatter"
   require_relative "shell/default"
+  require_relative "shell/options"
 
   def initialize(options)
-    @provider = options.delete(:provider)
-    @token = options.delete(:token)
-    @files = Dir[*options.delete(:files) || []].reject { File.directory?(_1) }
-    @options = options
+    @options = Options.new(options)
     @bot = LLM::Chat.new(llm).lazy
     @console = IO.console
     @line = IO::Line.new($stdout)
@@ -29,8 +27,6 @@ class LLM::Shell
   private
 
   attr_reader :bot,
-              :token,
-              :files,
               :options,
               :console,
               :default,
@@ -38,12 +34,12 @@ class LLM::Shell
 
   def formatter(messages) = Formatter.new(messages)
   def unread = @bot.messages.unread
-  def provider = LLM.method(@provider)
-  def llm = provider.call(token, **options)
+  def provider = LLM.method(options.provider)
+  def llm = provider.call(options.token, options.extra)
 
   def setup_bot
     bot.chat default.prompt, default.role
-    files.each { bot.chat File.read(_1) }
+    options.files.each { bot.chat File.read(_1) }
     bot.messages.each(&:read!)
     console.clear_screen
   end
