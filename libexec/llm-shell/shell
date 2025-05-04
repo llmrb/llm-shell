@@ -17,11 +17,11 @@ end
 def option_parser
   OptionParser.new do |o|
     o.banner = "Usage: llm-shell [OPTIONS]"
-    o.on("-p PROVIDER", "--provider NAME", "LLM provider", String)
-    o.on("-m [MODEL]", "--model [MODEL]", "LLM model", Array)
-    o.on("-t [TOKEN]", "--token [TOKEN]", "LLM token", String)
-    o.on("-h [HOST]", "--host [HOST]", "LLM host", String)
-    o.on("-f [GLOB]", "--files [GLOB]", "Glob pattern", Array)
+    o.on("-p PROVIDER", "--provider NAME", "gemini, openai, anthropic, or ollama", String)
+    o.on("-t [TOKEN]", "--token [TOKEN]", "required by gemini, openai, and anthropic", String)
+    o.on("-m [MODEL]", "--model [MODEL]", "optional, the name of a model", Array)
+    o.on("-h [HOST]", "--host [HOST]", "optional, sometimes required for ollama", String)
+    o.on("-f [GLOB]", "--files [GLOB]", "optional, glob pattern(s) separated by a comma", Array)
   end
 end
 

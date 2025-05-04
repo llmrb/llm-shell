@@ -2,17 +2,15 @@
 
 class LLM::Shell
   class Loop
-    def initialize(bot, options:, default:)
+    def initialize(bot, options:)
       @bot = bot
       @console = IO.console
       @options = options
-      @default = default
       @line = IO::Line.new($stdout)
     end
 
     def setup
-      bot.chat default.prompt, default.role
-      files.each { bot.chat File.read(_1) }
+      files.each { bot.chat ["# START: #{_1}", File.read(_1), "# END: #{_1}"].join("\n") }
       bot.messages.each(&:read!)
       clear_screen
     end
