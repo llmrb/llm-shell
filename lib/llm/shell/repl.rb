@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 class LLM::Shell
-  class Loop
+  ##
+  # The {LLM::Shell::REPL LLM::Shell::REPL} class represents a loop
+  # that accepts user input, evaluates it via the LLM, and prints the
+  # response to stdout.
+  class REPL
+    ##
+    # @param [LLM::Chat] bot
+    # @param [LLM::Shell::Options] options
+    # @return [LLM::Shell::REPL]
     def initialize(bot, options:)
       @bot = bot
       @console = IO.console
@@ -9,12 +17,18 @@ class LLM::Shell
       @line = IO::Line.new($stdout)
     end
 
+    ##
+    # Performs initial setup
+    # @return [void]
     def setup
       files.each { bot.chat ["# START: #{_1}", File.read(_1), "# END: #{_1}"].join("\n") }
       bot.messages.each(&:read!)
       clear_screen
     end
 
+    ##
+    # Enters the main loop
+    # @return [void]
     def start
       loop do
         emit read(bot)
@@ -32,10 +46,8 @@ class LLM::Shell
 
     private
 
-    attr_reader :bot,
-                :console,
-                :line,
-                :default,
+    attr_reader :bot, :console,
+                :line, :default,
                 :options
 
     def formatter(messages) = Formatter.new(messages)
