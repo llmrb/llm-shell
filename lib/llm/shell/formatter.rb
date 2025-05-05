@@ -26,7 +26,7 @@ class LLM::Shell
         role  = Paint[message.role, :bold, :yellow]
         title = "#{role} says: "
         body  = wrap(message.tap(&:read!).content)
-        [title, body, ""].join("\n")
+        [title, render(body), ""].join("\n")
       end.join
     end
 
@@ -36,8 +36,12 @@ class LLM::Shell
         role  = Paint[message.role, :bold, :green]
         title = "#{role} says: "
         body  = wrap(message.tap(&:read!).content)
-        [title, body].join("\n")
+        [title, render(body)].join("\n")
       end.join
+    end
+
+    def render(text)
+      Markdown.new(text).to_ansi
     end
 
     def wrap(text, width = 80)

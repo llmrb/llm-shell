@@ -8,6 +8,7 @@ require "io/line"
 require "paint"
 
 class LLM::Shell
+  require_relative "shell/markdown"
   require_relative "shell/formatter"
   require_relative "shell/default"
   require_relative "shell/options"

@@ -12,6 +12,7 @@ from what was learned along the way.
 - 🤝 Gemini, OpenAI, Anthropic and Ollama support
 - 📤 Attach local files as additional conversation context
 - 🧠 Discuss local files you're working on or trying to understand
+- 📝 Advanced formatting with Markdown
 
 ## Demos
 

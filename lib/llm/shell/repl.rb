@@ -21,7 +21,7 @@ class LLM::Shell
     # Performs initial setup
     # @return [void]
     def setup
-      bot.chat options.default.prompt, role: options.default.role
+      chat options.default.prompt, role: options.default.role
       files.each { bot.chat ["# START: #{_1}", File.read(_1), "# END: #{_1}"].join("\n") }
       bot.messages.each(&:read!)
       clear_screen
@@ -32,7 +32,7 @@ class LLM::Shell
     # @return [void]
     def start
       loop do
-        emit read(bot)
+        emit(read)
       rescue LLM::Error::ResponseError => ex
         print Paint[ex.response.class, :red], "\n"
         print ex.response.body, "\n"
@@ -56,18 +56,23 @@ class LLM::Shell
     def files = @options.files
     def clear_screen = console.clear_screen
 
-    def read(bot)
+    def read
       input = Readline.readline("llm> ", true) || throw(:exit, 0)
-      bot.chat(input)
-      clear_screen
+      chat input.tap { clear_screen }
       line.rewind.print(Paint["Thinking", :bold])
-      [messages = unread, line.rewind]
-      messages
+      unread.tap { line.rewind }
     end
 
     def emit(messages)
-      print formatter(messages).format!(:user)
-      print formatter(messages).format!(:assistant)
+      print formatter(messages).format!(:user), "\n"
+      print formatter(messages).format!(:assistant), "\n"
+    end
+
+    def chat(...)
+      case options.provider
+      when :openai then bot.respond(...)
+      else bot.chat(...)
+      end
     end
   end
 end

@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "llm.rb", "~> 0.5"
   spec.add_dependency "io-line.rb", "~> 0.1.0"
   spec.add_dependency "paint", "~> 2.1"
+  spec.add_dependency "kramdown", "~> 2.5"
 
   spec.add_development_dependency "webmock", "~> 3.24.0"
   spec.add_development_dependency "yard", "~> 0.9.37"

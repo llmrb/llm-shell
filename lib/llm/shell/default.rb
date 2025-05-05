@@ -15,6 +15,7 @@ class LLM::Shell
       "One or more files might be provided at the start of the conversation. " \
       "The user might ask you about them, you should try to understand them and what they are. " \
       "If you don't understand something, say so. " \
+      "Respond in markdown format." \
       "Each file will be surrounded by the following markers: " \
       "'# START: /path/to/file'" \
       "'# END: /path/to/file'"
