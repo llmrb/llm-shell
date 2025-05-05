@@ -18,7 +18,7 @@ class LLM::Shell
     @config  = Config.new(options[:provider])
     @default = Default.new(options[:provider])
     @options = Options.new @config.merge(options)
-    @bot  = LLM::Chat.new(llm).lazy
+    @bot  = LLM::Chat.new(llm, @options.chat).lazy
     @loop = Loop.new(@bot, options: @options)
   end
 
@@ -32,5 +32,5 @@ class LLM::Shell
 
   attr_reader :default, :options, :bot, :loop
   def provider = LLM.method(options.provider)
-  def llm = provider.call(options.token, options.extra)
+  def llm = provider.call(options.token, options.llm)
 end

@@ -19,6 +19,32 @@ from what was learned along the way.
 
 ![demo](share/llm-shell/examples/example1.gif)
 
+## Settings
+
+#### YAML
+
+The console client can be configured at the command line through option switches,
+or through a YAML file. The YAML file can generally contain the same options that
+could be specified at the command line. For cloud providers the token is the only
+required parameter, everything else has defaults. The YAML file is read from the
+path `${HOME}/.config/llm-shell.yml` and it has the following format:
+
+```yaml
+# ~/.config/llm-shell.yml
+openai:
+  token: YOURTOKEN
+  model: gpt-4o-mini
+gemini:
+  token: YOURTOKEN
+  model: gemini-2.0-flash-001
+anthropic:
+  token: YOURTOKEN
+  model: claude-3-7-sonnet-20250219
+ollama:
+  host: localhost
+  model: deepseek-coder:6.7b
+```
+
 ## Install
 
 llm-shell can be installed via [rubygems.org](https://rubygems.org/gems/llm-shell)
