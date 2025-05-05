@@ -14,23 +14,27 @@ class LLM::Shell
   require_relative "shell/repl"
   require_relative "shell/config"
 
+  ##
+  # @param [Hash] options
+  # @return [LLM::Shell]
   def initialize(options)
     @config  = Config.new(options[:provider])
-    @default = Default.new(options[:provider])
-    @options = Options.new @config.merge(options)
+    @options = Options.new @config.merge(options), Default.new(options[:provider])
     @bot  = LLM::Chat.new(llm, @options.chat).lazy
     @repl = REPL.new(@bot, options: @options)
   end
 
+  ##
+  # Start the shell
+  # @return [void]
   def start
-    bot.chat default.prompt, default.role
     repl.setup
     repl.start
   end
 
   private
 
-  attr_reader :default, :options, :bot, :repl
+  attr_reader :options, :bot, :repl
   def provider = LLM.method(options.provider)
   def llm = provider.call(options.token, options.llm)
 end

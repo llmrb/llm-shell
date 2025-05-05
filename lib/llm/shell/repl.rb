@@ -21,6 +21,7 @@ class LLM::Shell
     # Performs initial setup
     # @return [void]
     def setup
+      bot.chat options.default.prompt, role: options.default.role
       files.each { bot.chat ["# START: #{_1}", File.read(_1), "# END: #{_1}"].join("\n") }
       bot.messages.each(&:read!)
       clear_screen
