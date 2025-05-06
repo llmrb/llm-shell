@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   ]
   spec.require_paths = ["lib"]
   spec.executables = ["llm-shell"]
-  spec.add_dependency "llm.rb", "~> 0.5"
+  spec.add_dependency "llm.rb", "~> 0.6"
   spec.add_dependency "paint", "~> 2.1"
   spec.add_dependency "kramdown", "~> 2.5"
 
