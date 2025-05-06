@@ -11,7 +11,6 @@ from what was learned along the way.
 - 🌟 A single interface for multiple Large Language Models (LLMs)
 - 🤝 Gemini, OpenAI, Anthropic and Ollama support
 - 📤 Attach local files as additional conversation context
-- 🧠 Discuss local files you're working on or trying to understand
 - 📝 Advanced formatting with Markdown
 
 ## Demos
@@ -28,7 +27,7 @@ The console client can be configured at the command line through option switches
 or through a YAML file. The YAML file can generally contain the same options that
 could be specified at the command line. For cloud providers the token is the only
 required parameter, everything else has defaults. The YAML file is read from the
-path `${HOME}/.config/llm-shell.yml` and it has the following format:
+path `${HOME}/.llm-shell/config.yml` and it has the following format:
 
 ```yaml
 # ~/.config/llm-shell.yml
