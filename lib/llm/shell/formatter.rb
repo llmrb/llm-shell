@@ -5,7 +5,7 @@ class LLM::Shell
     FormatError = Class.new(RuntimeError)
 
     def initialize(messages)
-      @messages = messages
+      @messages = messages.reject(&:tool_call?)
     end
 
     def format!(role)
