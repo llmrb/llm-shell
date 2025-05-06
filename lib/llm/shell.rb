@@ -4,10 +4,10 @@ require "optparse"
 require "readline"
 require "yaml"
 require "llm"
-require "io/line"
 require "paint"
 
 class LLM::Shell
+  require_relative "../io/line"
   require_relative "shell/markdown"
   require_relative "shell/formatter"
   require_relative "shell/default"
