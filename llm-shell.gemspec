@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
     "README.md", "LICENSE",
     "lib/*.rb", "lib/**/*.rb",
     "libexec/*", "libexec/**/*",
+    "share/llm-shell/prompts/*",
     "bin/*", "llm.gemspec"
   ]
   spec.require_paths = ["lib"]
