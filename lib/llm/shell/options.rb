@@ -26,5 +26,6 @@ class LLM::Shell
     def llm = @options
     def chat = @chat_options
     def default = @default
+    def prompt = default.prompt
   end
 end

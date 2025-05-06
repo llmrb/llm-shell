@@ -7,18 +7,7 @@ class LLM::Shell
     end
 
     def prompt
-      "You are a helpful assistant." \
-      "Answer the user's questions as best as you can." \
-      "The user's environment is a terminal." \
-      "Provide short and concise answers that are suitable for a terminal." \
-      "Do not provide long answers." \
-      "One or more files might be provided at the start of the conversation. " \
-      "The user might ask you about them, you should try to understand them and what they are. " \
-      "If you don't understand something, say so. " \
-      "Respond in markdown format." \
-      "Each file will be surrounded by the following markers: " \
-      "'# START: /path/to/file'" \
-      "'# END: /path/to/file'"
+      File.read File.join(SHAREDIR, "prompts", "default.txt")
     end
 
     def role
@@ -27,5 +16,8 @@ class LLM::Shell
       else :user
       end
     end
+
+    SHAREDIR = File.join(__dir__, "..", "..", "..", "share", "llm-shell")
+    private_constant :SHAREDIR
   end
 end
