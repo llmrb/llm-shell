@@ -14,7 +14,6 @@ class LLM::Shell
     def initialize(options, default)
       @options  = options.transform_keys(&:to_sym)
       @provider = @options.delete(:provider)
-      @token    = @options.delete(:token)
       @files    = Dir[*@options.delete(:files) || []].reject { File.directory?(_1) }
       @chat_options = {model: @options.delete(:model)}.compact
       @default  = default

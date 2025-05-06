@@ -18,7 +18,7 @@ def option_parser
   OptionParser.new do |o|
     o.banner = "Usage: llm-shell [OPTIONS]"
     o.on("-p PROVIDER", "--provider NAME", "Required. Options: gemini, openai, anthropic, or ollama.", String)
-    o.on("-t [TOKEN]", "--token [TOKEN]", "Optional. Required by gemini, openai, and anthropic.", String)
+    o.on("-k [KEY]", "--key [KEY]", "Optional. Required by gemini, openai, and anthropic.", String)
     o.on("-m [MODEL]", "--model [MODEL]", "Optional. The name of a model.", Array)
     o.on("-h [HOST]", "--host [HOST]", "Optional. Sometimes required by ollama.", String)
     o.on("-o [PORT]", "--port [PORT]", "Optional. Sometimes required by ollama.", Integer)

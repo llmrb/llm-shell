@@ -69,7 +69,7 @@ class LLM::Shell
     def eval
       functions.each do |function|
         print Paint["system", :bold, :red], " says: ", "\n"
-        print "function: " , function.name, "\n"        
+        print "function: ", function.name, "\n"
         print "arguments: ", function.arguments, "\n"
         print "Do you want to call it? "
         input = $stdin.gets.chomp.downcase

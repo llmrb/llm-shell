@@ -3,7 +3,7 @@
 llm-shell is a command-line utility that provides a unified interface to multiple
 Large Language Models (LLMs). It serves as both a demo of the
 [llmrb/llm](https://github.com/llmrb/llm) library and a tool to help improve
-the library through real-world usage and feedback. Jump to the [Demos](#demos) 
+the library through real-world usage and feedback. Jump to the [Demos](#demos)
 section to see it in action!
 
 ## Features
@@ -66,13 +66,13 @@ path `${HOME}/.llm-shell/config.yml` and it has the following format:
 ```yaml
 # ~/.config/llm-shell.yml
 openai:
-  token: YOURTOKEN
+  key: YOURKEY
   model: gpt-4o-mini
 gemini:
-  token: YOURTOKEN
+  key: YOURKEY
   model: gemini-2.0-flash-001
 anthropic:
-  token: YOURTOKEN
+  key: YOURKEY
   model: claude-3-7-sonnet-20250219
 ollama:
   host: localhost

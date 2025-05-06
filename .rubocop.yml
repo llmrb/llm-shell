@@ -45,3 +45,5 @@ Style/MultilineIfModifier:
   Enabled: false
 Layout/ArrayAlignment:
   Enabled: false
+Security/Eval:
+  Enabled: false

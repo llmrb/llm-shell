@@ -55,5 +55,5 @@ class LLM::Shell
 
   attr_reader :options, :bot, :repl
   def provider = LLM.method(options.provider)
-  def llm = provider.call(options.token, options.llm)
+  def llm = provider.call(**options.llm)
 end
