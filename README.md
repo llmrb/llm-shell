@@ -36,10 +36,16 @@ LLM can call once you confirm you are okay with executing the
 code locally (along with any arguments it provides). See the
 earlier demo for an example.
 
+For security and safety reasons, a user must confirm the execution of
+all function calls before they happen and also add the function to
+an allowlist before it will be loaded by llm-shell automatically
+at boot time. See below for more details on how this can be done.
+
 An LLM function generally looks like this, and it can be dropped
 into the `~/.llm-shell/tools/` directory. This function is the one
 from the demo earlier, and I saved it as `~/.llm-shell/tools/system.rb`.
-The function's return value is relayed back to the LLM:
+The function's return value is relayed back to the LLM.
+
 
 ```ruby
 LLM.function(:system) do |fn|
@@ -58,8 +64,8 @@ end
 #### YAML
 
 The console client can be configured at the command line through option switches,
-or through a YAML file. The YAML file can generally contain the same options that
-could be specified at the command line. For cloud providers the token is the only
+or through a YAML file. The YAML file can contain the same options that could be
+specified at the command line. For cloud providers the key option is the only
 required parameter, everything else has defaults. The YAML file is read from the
 path `${HOME}/.llm-shell/config.yml` and it has the following format:
 
@@ -77,6 +83,8 @@ anthropic:
 ollama:
   host: localhost
   model: deepseek-coder:6.7b
+tools:
+  - system
 ```
 
 ## Install
