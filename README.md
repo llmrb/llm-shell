@@ -1,27 +1,57 @@
 ## About
 
-llm-shell is a command line utility that provides an interface to multiple
-large language models (LLMs). It primarily serves as a demo of the
-[llmrb/llm](https://github.com/llmrb/llm) library, and it was implemented
-to showcase the library's capabilities, and also to improve the library
-from what was learned along the way.
+llm-shell is a command-line utility that provides a unified interface to multiple
+Large Language Models (LLMs). It serves as both a demo of the
+[llmrb/llm](https://github.com/llmrb/llm) library and a tool to help improve
+the library through real-world usage and feedback. Jump to the [Demos](#demos) 
+section to see it in action!
 
 ## Features
 
-- 🌟 A single interface for multiple Large Language Models (LLMs)
-- 🤝 Gemini, OpenAI, Anthropic and Ollama support
-- 📤 Attach local files as additional conversation context
-- 📝 Advanced formatting with Markdown
+- 🌟 Unified interface for multiple Large Language Models (LLMs)
+- 🤝 Supports Gemini, OpenAI, Anthropic, and Ollama
+- 📤 Attach local files as conversation context
+- 🔧 Extend with your own functions and tool calls
+- 📝 Advanced Markdown formatting and output
 
 ## Demos
 
-#### Demo #1
+<details>
+  <summary><b>1. Tool calls</b></summary>
+  <img src="share/llm-shell/examples/example2.gif/">
+</details>
 
-![demo](share/llm-shell/examples/example2.gif)
+<details>
+  <summary><b>2. File discussion</b></summary>
+  <img src="share/llm-shell/examples/example1.gif">
+</details>
 
-#### Demo #2
+## Customization
 
-![demo](share/llm-shell/examples/example1.gif)
+#### Functions
+
+The `~/.llm-shell/tools/` directory can contain one or more
+[llmrb/llm](https://github.com/llmrb/llm) functions that the
+LLM can call once you confirm you are okay with executing the
+code locally (along with any arguments it provides). See the
+earlier demo for an example.
+
+An LLM function generally looks like this, and it can be dropped
+into the `~/.llm-shell/tools/` directory. This function is the one
+from the demo earlier, and I saved it as `~/.llm-shell/tools/system.rb`.
+The function's return value is relayed back to the LLM:
+
+```ruby
+LLM.function(:system) do |fn|
+  fn.description "Run a shell command"
+  fn.params do |schema|
+    schema.object(command: schema.string.required)
+  end
+  fn.define do |params|
+    `#{params.command}`
+  end
+end
+```
 
 ## Settings
 
