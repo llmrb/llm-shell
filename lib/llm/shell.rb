@@ -14,6 +14,7 @@ class LLM::Shell
   require_relative "shell/options"
   require_relative "shell/repl"
   require_relative "shell/config"
+  require_relative "shell/version"
 
   ##
   # @return [String]

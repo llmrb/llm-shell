@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "lib/llm/shell/version"
+
 Gem::Specification.new do |spec|
   spec.name = "llm-shell"
-  spec.version = "0.1.0"
+  spec.version = LLM::Shell::VERSION
   spec.authors = ["Antar Azri", "0x1eef"]
   spec.email = ["azantar@proton.me", "0x1eef@proton.me"]
 
@@ -11,7 +13,7 @@ Gem::Specification.new do |spec|
                  "Large Language Models (LLMs)."
   spec.description = spec.summary
   spec.homepage = "https://github.com/llmrb/llm-shell"
-  spec.license = "0BSDL"
+  spec.license = "0BSD"
   spec.required_ruby_version = ">= 3.0.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
