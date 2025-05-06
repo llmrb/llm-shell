@@ -14,13 +14,14 @@ class LLM::Shell
     def initialize(options, default)
       @options  = options.transform_keys(&:to_sym)
       @provider = @options.delete(:provider)
+      @tools    = @options.delete(:tools)
       @files    = Dir[*@options.delete(:files) || []].reject { File.directory?(_1) }
       @chat_options = {model: @options.delete(:model)}.compact
       @default  = default
     end
 
     def provider = @provider
-    def token = @token
+    def tools = @tools
     def files = @files
     def llm = @options
     def chat = @chat_options

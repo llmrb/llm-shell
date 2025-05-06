@@ -87,6 +87,21 @@ tools:
   - system
 ```
 
+## Usage
+
+#### CLI
+
+```bash
+Usage: llm-shell [OPTIONS]
+    -p, --provider NAME              Required. Options: gemini, openai, anthropic, or ollama.
+    -k, --key [KEY]                  Optional. Required by gemini, openai, and anthropic.
+    -m, --model [MODEL]              Optional. The name of a model.
+    -h, --host [HOST]                Optional. Sometimes required by ollama.
+    -o, --port [PORT]                Optional. Sometimes required by ollama.
+    -f, --files [GLOB]               Optional. Glob pattern(s) separated by a comma.
+    -t, --tools [TOOLS]              Optional. One or more tool names to load automatically.
+```
+
 ## Install
 
 llm-shell can be installed via [rubygems.org](https://rubygems.org/gems/llm-shell)

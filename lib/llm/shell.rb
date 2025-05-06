@@ -48,8 +48,14 @@ class LLM::Shell
   private
 
   def tools
-    LLM::Shell.tools.map do |path|
-      eval File.read(path), TOPLEVEL_BINDING, path, 1
+    LLM::Shell.tools.filter_map do |path|
+      name = File.basename(path, File.extname(path))
+      if options.tools.include?(name)
+        print Paint["llm-shell: ", :green], "load #{name} tool", "\n"
+        eval File.read(path), TOPLEVEL_BINDING, path, 1
+      else
+        print Paint["llm-shell:: ", :yellow], "skip #{name} tool", "\n"
+      end
     end.grep(LLM::Function)
   end
 

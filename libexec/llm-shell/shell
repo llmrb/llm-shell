@@ -4,7 +4,7 @@
 require_relative "../../lib/llm/shell"
 
 def main(argv)
-  options = {}
+  options = {tools: []}
   option_parser.parse(argv, into: options)
   if argv.empty? || options[:provider].nil?
     warn option_parser.help
@@ -23,6 +23,7 @@ def option_parser
     o.on("-h [HOST]", "--host [HOST]", "Optional. Sometimes required by ollama.", String)
     o.on("-o [PORT]", "--port [PORT]", "Optional. Sometimes required by ollama.", Integer)
     o.on("-f [GLOB]", "--files [GLOB]", "Optional. Glob pattern(s) separated by a comma.", Array)
+    o.on("-t [TOOLS]", "--tools [TOOLS]", "Optional. One or more tool names to load automatically.", Array)
   end
 end
 
