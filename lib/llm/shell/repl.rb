@@ -32,7 +32,9 @@ class LLM::Shell
     # @return [void]
     def start
       loop do
-        emit(read)
+        read
+        eval
+        emit
       rescue LLM::Error::ResponseError => ex
         print Paint[ex.response.class, :red], "\n"
         print ex.response.body, "\n"
@@ -53,6 +55,7 @@ class LLM::Shell
 
     def formatter(messages) = Formatter.new(messages)
     def unread = bot.messages.unread
+    def functions = bot.functions
     def files = @options.files
     def clear_screen = console.clear_screen
 
@@ -63,9 +66,26 @@ class LLM::Shell
       unread.tap { line.rewind }
     end
 
-    def emit(messages)
-      print formatter(messages).format!(:user), "\n"
-      print formatter(messages).format!(:assistant), "\n"
+    def eval
+      functions.each do |function|
+        print Paint["system", :bold, :red], " says: ", "\n"
+        print "function: " , function.name, "\n"        
+        print "arguments: ", function.arguments, "\n"
+        print "Do you want to call it? "
+        input = $stdin.gets.chomp.downcase
+        puts
+        if %w(y yes yeah ok).include?(input)
+          bot.chat function.call
+          unread.tap { line.rewind }
+        else
+          print "Skipping function call", "\n"
+        end
+      end
+    end
+
+    def emit
+      print formatter(unread).format!(:user), "\n"
+      print formatter(unread).format!(:assistant), "\n"
     end
 
     def chat(...)

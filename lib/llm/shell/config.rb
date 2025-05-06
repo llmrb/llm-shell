@@ -29,7 +29,7 @@ class LLM::Shell
     end
 
     def path
-      File.join Dir.home, ".llm-shell", "config.yml"
+      File.join LLM::Shell.home, "config.yml"
     end
   end
 end

@@ -16,12 +16,24 @@ class LLM::Shell
   require_relative "shell/config"
 
   ##
+  # @return [String]
+  def self.home
+    File.join Dir.home, ".llm-shell"
+  end
+
+  ##
+  # @return [Array<String>]
+  def self.tools
+    Dir[File.join(home, "tools", "*.rb")]
+  end
+
+  ##
   # @param [Hash] options
   # @return [LLM::Shell]
   def initialize(options)
     @config  = Config.new(options[:provider])
     @options = Options.new @config.merge(options), Default.new(options[:provider])
-    @bot  = LLM::Chat.new(llm, @options.chat).lazy
+    @bot  = LLM::Chat.new(llm, {tools:}.merge(@options.chat)).lazy
     @repl = REPL.new(@bot, options: @options)
   end
 
@@ -34,6 +46,12 @@ class LLM::Shell
   end
 
   private
+
+  def tools
+    LLM::Shell.tools.map do |path|
+      eval File.read(path), TOPLEVEL_BINDING, path, 1
+    end.grep(LLM::Function)
+  end
 
   attr_reader :options, :bot, :repl
   def provider = LLM.method(options.provider)

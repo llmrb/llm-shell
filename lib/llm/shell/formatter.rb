@@ -23,6 +23,7 @@ class LLM::Shell
     def format_user(messages)
       messages.flat_map do |message|
         next unless message.user?
+        next unless String === message.content
         role  = Paint[message.role, :bold, :yellow]
         title = "#{role} says: "
         body  = wrap(message.tap(&:read!).content)
@@ -33,6 +34,7 @@ class LLM::Shell
     def format_assistant(messages)
       messages.flat_map do |message|
         next unless message.assistant?
+        next unless String === message.content
         role  = Paint[message.role, :bold, :green]
         title = "#{role} says: "
         body  = wrap(message.tap(&:read!).content)

@@ -17,6 +17,10 @@ from what was learned along the way.
 
 #### Demo #1
 
+![demo](share/llm-shell/examples/example2.gif)
+
+#### Demo #2
+
 ![demo](share/llm-shell/examples/example1.gif)
 
 ## Settings
