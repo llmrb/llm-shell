@@ -10,7 +10,7 @@ it in action!
 ## Features
 
 - 🌟 Unified interface for multiple Large Language Models (LLMs)
-- 🤝 Supports Gemini, OpenAI, Anthropic, and Ollama
+- 🤝 Supports Gemini, OpenAI, Anthropic, LlamaCpp and Ollama
 - 📤 Attach local files as conversation context
 - 🔧 Extend with your own functions and tool calls
 - 📝 Advanced Markdown formatting and output
@@ -84,6 +84,9 @@ anthropic:
 ollama:
   host: localhost
   model: deepseek-coder:6.7b
+llamacpp:
+  host: localhost
+  model: qwen3
 tools:
   - system
 ```
