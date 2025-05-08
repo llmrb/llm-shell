@@ -55,7 +55,7 @@ class LLM::Shell
         print Paint["llm-shell: ", :green], "load #{name} tool", "\n"
         eval File.read(path), TOPLEVEL_BINDING, path, 1
       else
-        print Paint["llm-shell:: ", :yellow], "skip #{name} tool", "\n"
+        print Paint["llm-shell: ", :yellow], "skip #{name} tool", "\n"
       end
     end.grep(LLM::Function)
   end
