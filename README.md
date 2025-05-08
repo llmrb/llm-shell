@@ -19,7 +19,7 @@ it in action!
 
 <details>
   <summary><b>1. Tool calls</b></summary>
-  <img src="share/llm-shell/examples/example2.gif/">
+  <img src="share/llm-shell/examples/toolcalls.gif/">
 </details>
 
 <details>
