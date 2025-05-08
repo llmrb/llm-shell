@@ -74,7 +74,7 @@ class LLM::Shell
         print "Do you want to call it? "
         input = $stdin.gets.chomp.downcase
         puts
-        if %w(y yes yeah ok).include?(input)
+        if %w(y yes yep yeah ok).include?(input)
           bot.chat function.call
           unread.tap { line.rewind }
         else
