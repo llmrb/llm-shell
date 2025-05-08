@@ -78,7 +78,8 @@ class LLM::Shell
           bot.chat function.call
           unread.tap { line.rewind }
         else
-          print "Skipping function call", "\n"
+          bot.chat function.cancel
+          bot.chat "I decided to not run the function this time. Maybe next time."
         end
       end
     end
