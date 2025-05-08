@@ -27,6 +27,11 @@ it in action!
   <img src="share/llm-shell/examples/example1.gif">
 </details>
 
+<details>
+<summary><b>3. File imports</b></summary>
+  <img src="share/llm-shell/examples/example3.gif">
+</details>
+
 ## Customization
 
 #### Functions
