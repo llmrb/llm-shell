@@ -21,25 +21,25 @@ class LLM::Shell
     attr_reader :messages
 
     def format_user(messages)
-      messages.flat_map do |message|
+      messages.filter_map do |message|
         next unless message.user?
         next unless String === message.content
         role  = Paint[message.role, :bold, :yellow]
         title = "#{role} says: "
         body  = wrap(message.tap(&:read!).content)
-        [title, render(body), ""].join("\n")
-      end.join
+        [title, "\n", render(body), "\n"].join
+      end.join("\n")
     end
 
     def format_assistant(messages)
-      messages.flat_map do |message|
+      messages.filter_map do |message|
         next unless message.assistant?
         next unless String === message.content
         role  = Paint[message.role, :bold, :green]
         title = "#{role} says: "
         body  = wrap(message.tap(&:read!).content)
-        [title, render(body)].join("\n")
-      end.join
+        [title, "\n", render(body)].join
+      end.join("\n")
     end
 
     def render(text)
