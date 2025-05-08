@@ -3,6 +3,7 @@
 class LLM::Shell
   class Formatter
     FormatError = Class.new(RuntimeError)
+    FILE_REGEXP = /\A--- START: (.+?) ---/
 
     def initialize(messages)
       @messages = messages.reject(&:tool_call?)
@@ -24,6 +25,7 @@ class LLM::Shell
       messages.filter_map do |message|
         next unless message.user?
         next unless String === message.content
+        next unless message.content !~ FILE_REGEXP
         role  = Paint[message.role, :bold, :yellow]
         title = "#{role} says: "
         body  = wrap(message.tap(&:read!).content)

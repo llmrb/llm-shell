@@ -55,6 +55,7 @@ class LLM::Shell
       text
         .gsub(/([^\n])\n(#+ )/, "\\1\n\n\\2")
         .gsub(/(#+ .+?)\n(?!\n)/, "\\1\n\n")
+        .gsub(/\A<think>[\n]+<\/think>\n/, "")
     end
   end
 end

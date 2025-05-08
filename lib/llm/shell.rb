@@ -8,6 +8,8 @@ require "paint"
 
 class LLM::Shell
   require_relative "../io/line"
+  require_relative "shell/command"
+  require_relative "shell/command/extension"
   require_relative "shell/markdown"
   require_relative "shell/formatter"
   require_relative "shell/default"
@@ -15,6 +17,10 @@ class LLM::Shell
   require_relative "shell/repl"
   require_relative "shell/config"
   require_relative "shell/version"
+
+  ##
+  # Load all commands
+  Dir[File.join(__dir__, "shell", "commands", "*.rb")].each { require(_1) }
 
   ##
   # @return [String]

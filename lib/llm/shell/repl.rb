@@ -14,7 +14,7 @@ class LLM::Shell
       @bot = bot
       @console = IO.console
       @options = options
-      @line = IO::Line.new($stdout)
+      @io = IO::Line.new($stdout)
     end
 
     ##
@@ -50,7 +50,7 @@ class LLM::Shell
     private
 
     attr_reader :bot, :console,
-                :line, :default,
+                :io, :default,
                 :options
 
     def formatter(messages) = Formatter.new(messages)
@@ -61,9 +61,17 @@ class LLM::Shell
 
     def read
       input = Readline.readline("llm> ", true) || throw(:exit, 0)
-      chat input.tap { clear_screen }
-      line.rewind.print(Paint["Thinking", :bold])
-      unread.tap { line.rewind }
+      words = input.split(" ")
+      if LLM.commands[words[0]]
+        cmd  = LLM.commands[words[0]]
+        argv = words[1..]
+        cmd.setup(bot, io)
+        cmd.call(*argv)
+      else
+        chat input.tap { clear_screen }
+        io.rewind.print(Paint["Thinking", :bold])
+        unread.tap { io.rewind }
+      end
     end
 
     def eval
@@ -76,7 +84,7 @@ class LLM::Shell
         puts
         if %w(y yes yep yeah ok).include?(input)
           bot.chat function.call
-          unread.tap { line.rewind }
+          unread.tap { io.rewind }
         else
           bot.chat function.cancel
           bot.chat "I decided to not run the function this time. Maybe next time."
