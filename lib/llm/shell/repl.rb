@@ -93,8 +93,10 @@ class LLM::Shell
     end
 
     def emit
-      print formatter(unread).format!(:user), "\n"
-      print formatter(unread).format!(:assistant), "\n"
+      IO.popen("less -FRX", "w") do
+        _1.write formatter(unread).format!(:user), "\n"
+        _1.write formatter(unread).format!(:assistant), "\n"
+      end
     end
 
     def chat(...)
