@@ -14,7 +14,7 @@ it in action!
 - 📤 Attach local files as conversation context
 - 🔧 Extend with your own functions and tool calls
 - 📝 Advanced Markdown formatting and output
-- 📄 Deploys the less pager for long outputs.
+- 📄 Deploys the less pager for long outputs
 
 ## Demos
 
