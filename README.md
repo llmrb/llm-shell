@@ -61,7 +61,11 @@ LLM.function(:system) do |fn|
     schema.object(command: schema.string.required)
   end
   fn.define do |params|
-    `#{params.command}`
+    ro, wo = IO.pipe
+    re, we = IO.pipe
+    Process.wait Process.spawn(params.command, out: wo, err: we)
+    [wo,we].each(&:close)
+    {stderr: re.read, stdout: ro.read}
   end
 end
 ```
