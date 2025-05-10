@@ -12,6 +12,10 @@ class LLM::Shell::Command
       Dir["#{path}*"]
     end
 
+    ##
+    # @param [LLM::Shell::Context] context
+    #  The context of the command
+    # @return [LLM::Shell::Command::ImportFile]
     def initialize(context)
       @context = context
     end
@@ -35,6 +39,7 @@ class LLM::Shell::Command
   end
 
   LLM.command "import-file" do |cmd|
+    cmd.description "Share one or more files with the LLM"
     cmd.register ImportFile
   end
 end

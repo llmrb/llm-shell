@@ -13,11 +13,25 @@ class LLM::Shell
     # Set or get the command name
     # @param [String, nil] name
     #  The name of the command
+    # @return [String]
     def name(name = nil)
       if name
         @name = name
       else
         @name
+      end
+    end
+
+    ##
+    # Set or get the command description
+    # @param [String, nil] desc
+    #  The description of the command
+    # @return [String]
+    def description(desc = nil)
+      if desc
+        @description = desc
+      else
+        @description
       end
     end
 

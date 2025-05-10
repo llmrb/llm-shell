@@ -85,6 +85,7 @@ command for a realistic example:
 
 ```ruby
 LLM.command "say-hello" do |cmd|
+  cmd.description "Say hello to somebody"
   cmd.define do |name|
     io.rewind.print "Hello #{name}!"
   end
