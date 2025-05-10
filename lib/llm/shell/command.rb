@@ -5,6 +5,11 @@ class LLM::Shell
     Context = Struct.new(:bot, :io)
 
     ##
+    # Returns the underlying command object
+    # @return [Class, #call]
+    attr_reader :object
+
+    ##
     # Set or get the command name
     # @param [String, nil] name
     #  The name of the command
@@ -27,7 +32,7 @@ class LLM::Shell
     # Define the command
     # @return [void]
     def define(klass = nil, &b)
-      @runner = klass || b
+      @object = klass || b
     end
     alias_method :register, :define
 
@@ -37,10 +42,10 @@ class LLM::Shell
     def call(*argv)
       if @context.nil?
         raise "context has not been setup"
-      elsif Class === @runner
-        @runner.new(@context).call(*argv)
+      elsif Class === @object
+        @object.new(@context).call(*argv)
       else
-        @context.instance_exec(*argv, &@runner)
+        @context.instance_exec(*argv, &@object)
       end
     end
   end

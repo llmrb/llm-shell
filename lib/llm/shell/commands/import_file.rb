@@ -2,6 +2,16 @@
 
 class LLM::Shell::Command
   class ImportFile
+    ##
+    # Completes a path with a wildcard.
+    # @param path [String]
+    #  The path to complete.
+    # @return [Array<String>]
+    #  Returns the completed path(s)
+    def self.complete(path)
+      Dir["#{path}*"]
+    end
+
     def initialize(context)
       @context = context
     end

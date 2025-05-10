@@ -13,8 +13,9 @@ it in action!
 - 🤝 Supports Gemini, OpenAI, Anthropic, LlamaCpp and Ollama
 - 📤 Attach local files as conversation context
 - 🔧 Extend with your own functions and tool calls
-- 📝 Advanced Markdown formatting and output
+- 🤖 Builtin auto-complete powered by Readline
 - 📄 Deploys the less pager for long outputs
+- 📝 Advanced Markdown formatting and output
 
 ## Demos
 
