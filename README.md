@@ -9,10 +9,18 @@ it in action!
 
 ## Features
 
+#### General
+
 - 🌟 Unified interface for multiple Large Language Models (LLMs)
 - 🤝 Supports Gemini, OpenAI, Anthropic, LlamaCpp and Ollama
+
+#### Customize
+
 - 📤 Attach local files as conversation context
 - 🔧 Extend with your own functions and tool calls
+
+#### Shell
+
 - 🤖 Builtin auto-complete powered by Readline
 - 📄 Deploys the less pager for long outputs
 - 📝 Advanced Markdown formatting and output
