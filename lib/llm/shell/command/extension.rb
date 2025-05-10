@@ -4,17 +4,19 @@ class LLM::Shell::Command
   module Extension
     ##
     # @example
-    #   LLM.command do |cmd|
-    #     cmd.name "hello"
+    #   LLM.command(:hello) do |cmd|
     #     cmd.define do |name|
     #       io.rewind.print("Hello #{name}")
     #     end
     #   end
+    # @param [String] name
+    #  The name of the command
     # @yieldparam [LLM::Shell::Command] cmd
     #  Yields an instance of LLM::Shell::Command
     # @return [void]
-    def command
+    def command(name)
       cmd = LLM::Shell::Command.new
+      cmd.name(name) if name
       yield cmd
       commands[cmd.name] = cmd
     end

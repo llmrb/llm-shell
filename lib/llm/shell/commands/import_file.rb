@@ -34,8 +34,7 @@ class LLM::Shell::Command
     def io = @context.io
   end
 
-  LLM.command do |command|
-    command.name "import-file"
-    command.register ImportFile
+  LLM.command "import-file" do |cmd|
+    cmd.register ImportFile
   end
 end

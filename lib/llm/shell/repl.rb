@@ -21,6 +21,7 @@ class LLM::Shell
     # Performs initial setup
     # @return [void]
     def setup
+      LLM::Shell.commands.each { |file| require file }
       Readline.completion_proc = Completion.to_proc
       chat options.prompt, role: options.default.role
       files.each { bot.chat ["--- START: #{_1} ---", File.read(_1), "--- END: #{_1} ---"].join("\n") }

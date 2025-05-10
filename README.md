@@ -18,6 +18,7 @@ it in action!
 
 - 📤 Attach local files as conversation context
 - 🔧 Extend with your own functions and tool calls
+- 🚀 Extend with your own console commands
 
 #### Shell
 
@@ -46,22 +47,16 @@ it in action!
 
 #### Functions
 
+> For security and safety reasons, a user must confirm the execution of
+> all function calls before they happen and also add the function to
+> an allowlist before it will be loaded by llm-shell automatically
+> at boot time.
+
 The `~/.llm-shell/tools/` directory can contain one or more
 [llmrb/llm](https://github.com/llmrb/llm) functions that the
 LLM can call once you confirm you are okay with executing the
 code locally (along with any arguments it provides). See the
-earlier demo for an example.
-
-For security and safety reasons, a user must confirm the execution of
-all function calls before they happen and also add the function to
-an allowlist before it will be loaded by llm-shell automatically
-at boot time. See below for more details on how this can be done.
-
-An LLM function generally looks like this, and it can be dropped
-into the `~/.llm-shell/tools/` directory. This function is the one
-from the demo earlier, and I saved it as `~/.llm-shell/tools/system.rb`.
-The function's return value is relayed back to the LLM.
-
+earlier demo for an example:
 
 ```ruby
 LLM.function(:system) do |fn|
@@ -79,6 +74,21 @@ LLM.function(:system) do |fn|
 end
 ```
 
+#### Commands
+
+llm-shell can be extended with your own console commands. This can be
+done by creating a Ruby file in the `~/.llm-shell/commands/` directory &ndash;
+with one file per command. The commands are loaded at boot time. See the
+[import-file](lib/llm/shell/commands/import_file.rb)
+command for a realistic example:
+
+```ruby
+LLM.command "say-hello" do |cmd|
+  cmd.define do |name|
+    io.rewind.print "Hello #{name}!"
+  end
+end
+```
 ## Settings
 
 #### YAML

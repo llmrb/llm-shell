@@ -36,6 +36,12 @@ class LLM::Shell
   end
 
   ##
+  # @return [Array<String>]
+  def self.commands
+    Dir[File.join(home, "commands", "*.rb")]
+  end
+
+  ##
   # @param [Hash] options
   # @return [LLM::Shell]
   def initialize(options)
