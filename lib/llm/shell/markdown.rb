@@ -42,7 +42,9 @@ class LLM::Shell
         lines = node.value.each_line.to_a
         lang  = lines[0].strip
         code  = lines[1..].join
-        ["\n", Paint[">>> #{lang}", :blue, :bold], "\n", coderay(code, lang)].join
+        ["\n", Paint[">>> #{lang}", :blue, :bold],
+         "\n\n", coderay(code, lang),
+         "\n", Paint["<<< #{lang}", :blue, :bold]].join
       when :text
         node.value
       else
