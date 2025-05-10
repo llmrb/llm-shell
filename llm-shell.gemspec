@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["azantar@proton.me", "0x1eef@proton.me"]
 
   spec.summary = "llm-shell is an extensible, developer-oriented " \
-                 "command-line utility that can interact with multiple " \
+                 "command-line console that can interact with multiple " \
                  "Large Language Models (LLMs)."
   spec.description = spec.summary
   spec.homepage = "https://github.com/llmrb/llm-shell"

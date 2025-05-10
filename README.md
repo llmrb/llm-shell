@@ -1,7 +1,7 @@
 ## About
 
 llm-shell is an extensible, developer-oriented command-line
-utility that can interact with multiple Large Language Models
+console that can interact with multiple Large Language Models
 (LLMs). It serves as both a demo of the [llmrb/llm](https://github.com/llmrb/llm)
 library and a tool to help improve the library through real-world
 usage and feedback. Jump to the [Demos](#demos) section to see
