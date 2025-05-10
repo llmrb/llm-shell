@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "llm.rb", "~> 0.7"
   spec.add_dependency "paint", "~> 2.1"
   spec.add_dependency "kramdown", "~> 2.5"
-
+  spec.add_dependency "coderay", "~> 1.1"
   spec.add_development_dependency "webmock", "~> 3.24.0"
   spec.add_development_dependency "yard", "~> 0.9.37"
   spec.add_development_dependency "kramdown", "~> 2.4"

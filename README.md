@@ -23,6 +23,7 @@ it in action!
 #### Shell
 
 - 🤖 Builtin auto-complete powered by Readline
+- 🎨 Builtin syntax highlighting powered by Coderay
 - 📄 Deploys the less pager for long outputs
 - 📝 Advanced Markdown formatting and output
 

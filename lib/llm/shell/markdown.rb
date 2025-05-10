@@ -3,6 +3,7 @@
 class LLM::Shell
   class Markdown
     require "kramdown"
+    require "coderay"
 
     ##
     # @param [String] text
@@ -37,7 +38,12 @@ class LLM::Shell
         Paint[node.children.map { visit(_1) }.join, :bold]
       when :br
         "\n"
-      when :text, :codespan
+      when :codespan, :codeblock
+        lines = node.value.each_line.to_a
+        lang  = lines[0].strip
+        code  = lines[1..].join
+        ["\n", Paint[">>> #{lang}", :blue, :bold], "\n", coderay(code, lang)].join
+      when :text
         node.value
       else
         node.children.map { visit(_1) }.join
@@ -57,6 +63,13 @@ class LLM::Shell
         .gsub(/(#+ .+?)\n(?!\n)/, "\\1\n\n")
         .gsub(/\A<think>[\n]*<\/think>(?:\n)/, "")
         .gsub(/\A\n{2,}/, "")
+    end
+
+    def coderay(code, lang)
+      CodeRay.scan(code, lang).terminal
+    rescue ArgumentError
+      lang = "text"
+      retry
     end
   end
 end
