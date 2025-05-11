@@ -27,6 +27,7 @@ class LLM::Shell::Command
     private
 
     def import(file)
+      return unless File.file?(file)
       bot.chat [
         "--- START: #{file} ---",
         File.read(file),
