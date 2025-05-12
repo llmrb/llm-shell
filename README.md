@@ -35,13 +35,13 @@ it in action!
 </details>
 
 <details>
-  <summary><b>2. Files: import at boot time</b></summary>
-  <img src="share/llm-shell/examples/files-boottime.gif">
+  <summary><b>2. Files: import at runtime</b></summary>
+  <img src="share/llm-shell/examples/files-runtime.gif">
 </details>
 
 <details>
-<summary><b>3. Files: import at runtime</b></summary>
-  <img src="share/llm-shell/examples/files-runtime.gif">
+  <summary><b>3. Files: import at boot time</b></summary>
+  <img src="share/llm-shell/examples/files-boottime.gif">
 </details>
 
 ## Customization
@@ -80,8 +80,10 @@ end
 llm-shell can be extended with your own console commands. This can be
 done by creating a Ruby file in the `~/.llm-shell/commands/` directory &ndash;
 with one file per command. The commands are loaded at boot time. See the
-[import-file](lib/llm/shell/commands/import_file.rb)
-command for a realistic example:
+[file-import](lib/llm/shell/commands/file_import.rb)
+and
+[dir-import](lib/llm/shell/commands/dir_import.rb)
+commands for a realistic example:
 
 ```ruby
 LLM.command "say-hello" do |cmd|

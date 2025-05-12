@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LLM::Shell::Command
-  class ImportFile
+  class FileImport
     ##
     # Completes a path with a wildcard.
     # @param path [String]
@@ -20,6 +20,9 @@ class LLM::Shell::Command
       @context = context
     end
 
+    ##
+    # Imports one or more globbed files.
+    # @return [void]
     def call(*files)
       Dir[*files].each { import(_1) }
     end
@@ -39,8 +42,8 @@ class LLM::Shell::Command
     def io = @context.io
   end
 
-  LLM.command "import-file" do |cmd|
+  LLM.command "file-import" do |cmd|
     cmd.description "Share one or more files with the LLM"
-    cmd.register ImportFile
+    cmd.register(FileImport)
   end
 end
