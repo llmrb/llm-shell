@@ -10,7 +10,7 @@ class LLM::Shell
     # @param [LLM::Chat] bot
     # @param [LLM::Shell::Options] options
     # @return [LLM::Shell::REPL]
-    def initialize(bot, options:)
+    def initialize(bot:, options:)
       @bot = bot
       @console = IO.console
       @options = options

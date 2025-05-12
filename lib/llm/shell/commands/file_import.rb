@@ -15,7 +15,7 @@ class LLM::Shell::Command
     ##
     # @param [LLM::Shell::Context] context
     #  The context of the command
-    # @return [LLM::Shell::Command::ImportFile]
+    # @return [LLM::Shell::Command::FileImport]
     def initialize(context)
       @context = context
     end

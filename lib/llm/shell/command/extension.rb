@@ -16,7 +16,7 @@ class LLM::Shell::Command
     # @return [void]
     def command(name)
       cmd = LLM::Shell::Command.new
-      cmd.name(name) if name
+      cmd.name(name)
       yield cmd
       commands[cmd.name] = cmd
     end
