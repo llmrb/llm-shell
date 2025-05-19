@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.description = spec.summary
   spec.homepage = "https://github.com/llmrb/llm-shell"
   spec.license = "0BSD"
-  spec.required_ruby_version = ">= 3.0.0"
+  spec.required_ruby_version = ">= 3.2"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   ]
   spec.require_paths = ["lib"]
   spec.executables = ["llm-shell"]
-  spec.add_dependency "llm.rb", "~> 0.7"
+  spec.add_dependency "llm.rb", "~> 0.8"
   spec.add_dependency "paint", "~> 2.1"
   spec.add_dependency "kramdown", "~> 2.5"
   spec.add_dependency "coderay", "~> 1.1"
