@@ -12,7 +12,7 @@ it in action!
 #### General
 
 - 🌟 Unified interface for multiple Large Language Models (LLMs)
-- 🤝 Supports Gemini, OpenAI, Anthropic, LlamaCpp and Ollama
+- 🤝 Supports Gemini, OpenAI, Anthropic, DeepSeek, LlamaCpp and Ollama
 
 #### Customize
 
@@ -114,6 +114,9 @@ gemini:
 anthropic:
   key: YOURKEY
   model: claude-3-7-sonnet-20250219
+deepseek:
+  key: YOURKEY
+  model: deepseek-chat
 ollama:
   host: localhost
   model: deepseek-coder:6.7b
