@@ -4,5 +4,5 @@ module LLM
 end unless defined?(LLM)
 
 class LLM::Shell
-  VERSION = "0.4.1"
+  VERSION = "0.5.0"
 end
