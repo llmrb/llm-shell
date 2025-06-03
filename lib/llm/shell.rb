@@ -47,7 +47,7 @@ class LLM::Shell
   def initialize(options)
     @config  = Config.new(options[:provider])
     @options = Options.new @config.merge(options), Default.new(options[:provider])
-    @bot  = LLM::Bot.new(llm, {tools:}.merge(@options.chat))
+    @bot  = LLM::Bot.new(llm, {tools:}.merge(@options.bot))
     @repl = REPL.new(bot: @bot, options: @options)
   end
 

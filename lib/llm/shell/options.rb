@@ -16,7 +16,7 @@ class LLM::Shell
       @provider = @options.delete(:provider)
       @tools    = @options.delete(:tools)
       @files    = Dir[*@options.delete(:files) || []].reject { File.directory?(_1) }
-      @chat_options = {model: @options.delete(:model)}.compact
+      @bot_options = {model: @options.delete(:model)}.compact
       @default  = default
     end
 
@@ -24,7 +24,7 @@ class LLM::Shell
     def tools = @tools
     def files = @files
     def llm = @options
-    def chat = @chat_options
+    def bot = @bot_options
     def default = @default
     def prompt = default.prompt
   end
