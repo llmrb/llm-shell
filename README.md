@@ -93,6 +93,24 @@ LLM.command "say-hello" do |cmd|
   end
 end
 ```
+
+#### Prompts
+
+> It is recommended that custom prompts instruct the LLM to emit markdown,
+> otherwise you might see unexpected results because llm-shell assumes the LLM
+> will emit markdown.
+
+The first message in a conversation is sometimes known as a "system prompt",
+and it defines the expectations and rules to be followed by an LLM throughout
+a conversation. The default prompt used by llm-shell can be found at
+[default.txt](share/llm-shell/prompts/default.txt).
+
+The prompt can be changed by adding a file to the `~/.llm-shell/prompts/` directory,
+and then choosing it at boot time with the `-r PROMPT`, `--prompt PROMPT` options.
+Generally you probably want to fork [default.txt](share/llm-shell/prompts/default.txt)
+to conserve the original prompt rules around markdown and files, then modify it to
+suit your own needs and preferences.
+
 ## Settings
 
 #### YAML

@@ -28,12 +28,19 @@ def option_parser
     o.on("-o [PORT]", "--port [PORT]", "Optional. Sometimes required by ollama.", Integer)
     o.on("-f [GLOB]", "--files [GLOB]", "Optional. Glob pattern(s) separated by a comma.", Array)
     o.on("-t [TOOLS]", "--tools [TOOLS]", "Optional. One or more tool names to load automatically.", Array)
+    o.on("-r [PROMPT]", "--prompt [PROMPT]", "Optional. The prompt to use.", String)
     o.on("-v", "--version", "Optional. Print the version and exit.")
   end
 end
 
-excode = catch(:exit) {
+excode = catch(:exit) do
   main(ARGV)
   0
-}
+rescue => ex
+  print Paint[ex.class, :red, :bold], "\n"
+  print ex.message, "\n\n"
+  print Paint["Backtrace", :bold], "\n"
+  print ex.backtrace[0..5].join("\n"), "\n"
+  1
+end
 exit excode

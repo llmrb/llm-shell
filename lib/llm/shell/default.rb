@@ -7,7 +7,7 @@ class LLM::Shell
     end
 
     def prompt
-      File.read File.join(SHAREDIR, "prompts", "default.txt")
+      File.join(SHAREDIR, "prompts", "default.txt")
     end
 
     def role

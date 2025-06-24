@@ -18,3 +18,4 @@ rescue Interrupt
   wait
 end
 main(ARGV)
+exit $?&.exitstatus || 1
