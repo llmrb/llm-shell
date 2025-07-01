@@ -2,6 +2,9 @@
 
 class LLM::Shell::Command
   class DirImport
+    require_relative "mixin"
+    include Mixin
+
     ##
     # Completes a path with a wildcard.
     # @param path [String]
@@ -34,20 +37,6 @@ class LLM::Shell::Command
         end
       end
     end
-
-    private
-
-    def import(file)
-      return unless File.file?(file)
-      bot.chat [
-        "--- START: #{file} ---",
-        File.read(file),
-        "--- END: #{file} ---"
-      ].join("\n")
-    end
-
-    def bot = @context.bot
-    def io = @context.io
   end
 
   LLM.command "dir-import" do |cmd|
