@@ -2,8 +2,8 @@
 
 class LLM::Shell::Command
   ##
-  # The {LLM::Shell::Command::Extension LLM::Shell::Command::Extension} 
-  # module extends the `LLM` constant with methods that can provide shell 
+  # The {LLM::Shell::Command::Extension LLM::Shell::Command::Extension}
+  # module extends the `LLM` constant with methods that can provide shell
   # commands for an active llm-shell session.
   #
   # @example hello command
