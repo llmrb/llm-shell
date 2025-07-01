@@ -24,7 +24,7 @@ class LLM::Shell
       LLM::Shell.commands.each { |file| require file }
       Readline.completion_proc = Completion.to_proc
       chat options.prompt, role: options.default.role
-      files.each { bot.chat ["--- START: #{_1} ---", File.read(_1), "--- END: #{_1} ---"].join("\n") }
+      files.each { chat ["--- START: #{_1} ---", File.read(_1), "--- END: #{_1} ---"].join("\n") }
       bot.messages.each(&:read!)
       clear_screen
     end
@@ -51,16 +51,6 @@ class LLM::Shell
 
     private
 
-    attr_reader :bot, :console,
-                :io, :default,
-                :options
-
-    def formatter(messages) = Formatter.new(messages)
-    def unread = bot.messages.unread
-    def functions = bot.functions
-    def files = @options.files
-    def clear_screen = console.clear_screen
-
     def read
       input = Readline.readline("llm> ", true) || throw(:exit, 0)
       words = input.split(" ")
@@ -85,11 +75,11 @@ class LLM::Shell
         input = $stdin.gets.chomp.downcase
         puts
         if %w(y yes yep yeah ok).include?(input)
-          bot.chat function.call
+          chat function.call
           unread.tap { io.rewind }
         else
-          bot.chat function.cancel
-          bot.chat "I decided to not run the function this time. Maybe next time."
+          chat function.cancel
+          chat "I decided to not run the function this time. Maybe next time."
         end
       end
     end
@@ -101,11 +91,13 @@ class LLM::Shell
       end
     end
 
-    def chat(...)
-      case options.provider
-      when :openai then bot.respond(...)
-      else bot.chat(...)
-      end
-    end
+    attr_reader :bot, :console, :io, :default, :options
+
+    def formatter(messages) = Formatter.new(messages)
+    def unread = bot.messages.unread
+    def functions = bot.functions
+    def files = @options.files
+    def clear_screen = console.clear_screen
+    def chat(...) = bot.chat(...)
   end
 end
