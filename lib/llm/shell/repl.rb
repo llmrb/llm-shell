@@ -37,7 +37,7 @@ class LLM::Shell
         read
         eval
         emit
-      rescue LLM::Error::ResponseError => ex
+      rescue LLM::ResponseError => ex
         print Paint[ex.response.class, :red], "\n"
         print ex.response.body, "\n"
       rescue => ex

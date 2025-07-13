@@ -1,0 +1,45 @@
+# frozen_string_literal: true
+
+class LLM::Shell::Command
+  class History
+    require_relative "mixin"
+    include Mixin
+
+    ##
+    # @param [LLM::Shell::Context] context
+    #  The context of the command
+    # @return [LLM::Shell::Command::FileImport]
+    def initialize(context)
+      @context = context
+    end
+
+    ##
+    # Imports one or more globbed files.
+    # @return [void]
+    def call
+      clear_screen
+      emit
+    end
+
+    private
+
+    def emit
+      IO.popen("less -FRX", "w") do |io|
+        messages.each.with_index do |message, index|
+          next if index <= 1
+          io << render(message) << "\n"
+        end
+      end
+    end
+
+    def console = IO.console
+    def clear_screen = console.clear_screen
+    def messages = bot.messages
+    def render(message) = LLM::Shell::Renderer.new(message).render
+  end
+
+  LLM.command "history" do |cmd|
+    cmd.description "Show the full chat history"
+    cmd.register(History)
+  end
+end

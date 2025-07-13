@@ -19,17 +19,12 @@ class LLM::Shell
 
     private
 
-    attr_reader :messages
-
     def format_user(messages)
       messages.filter_map do |message|
         next unless message.user?
         next unless String === message.content
         next unless message.content !~ FILE_REGEXP
-        role  = Paint[message.role, :bold, :yellow]
-        title = "#{role} says: "
-        body  = wrap(message.tap(&:read!).content)
-        [title, "\n", render(body), "\n"].join
+        render(message.tap(&:read!))
       end.join("\n")
     end
 
@@ -37,19 +32,11 @@ class LLM::Shell
       messages.filter_map do |message|
         next unless message.assistant?
         next unless String === message.content
-        role  = Paint[message.role, :bold, :green]
-        title = "#{role} says: "
-        body  = wrap(message.tap(&:read!).content)
-        [title, "\n", render(body)].join
+        render(message.tap(&:read!))
       end.join("\n")
     end
 
-    def render(text)
-      Markdown.new(text).to_ansi
-    end
-
-    def wrap(text, width = 80)
-      text.gsub(/(.{1,#{width}})(\s+|\Z)/, "\\1\n")
-    end
+    attr_reader :messages
+    def render(message) = Renderer.new(message).render
   end
 end

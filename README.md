@@ -80,10 +80,11 @@ end
 llm-shell can be extended with your own console commands. This can be
 done by creating a Ruby file in the `~/.llm-shell/commands/` directory &ndash;
 with one file per command. The commands are loaded at boot time. See the
-[file-import](lib/llm/shell/commands/file_import.rb)
+[file-import](lib/llm/shell/commands/file_import.rb),
+[dir-import](lib/llm/shell/commands/dir_import.rb),
 and
-[dir-import](lib/llm/shell/commands/dir_import.rb)
-commands for a realistic example:
+[history](lib/llm/shell/commands/history.rb)
+commands for realistic examples:
 
 ```ruby
 LLM.command "say-hello" do |cmd|
