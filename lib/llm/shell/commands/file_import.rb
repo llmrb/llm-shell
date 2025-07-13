@@ -29,10 +29,12 @@ class LLM::Shell::Command
     def call(*files)
       Dir[*files].each { import(_1) }
     end
-  end
 
-  LLM.command "file-import" do |cmd|
-    cmd.description "Share one or more files with the LLM"
-    cmd.register(FileImport)
+    private
+
+    LLM.command "file-import" do |cmd|
+      cmd.description "Share one or more files with the LLM"
+      cmd.register(self)
+    end
   end
 end

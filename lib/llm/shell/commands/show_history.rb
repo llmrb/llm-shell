@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LLM::Shell::Command
-  class History
+  class ShowHistory
     require_relative "mixin"
     include Mixin
 
@@ -36,10 +36,10 @@ class LLM::Shell::Command
     def clear_screen = console.clear_screen
     def messages = bot.messages
     def render(message) = LLM::Shell::Renderer.new(message).render
-  end
 
-  LLM.command "history" do |cmd|
-    cmd.description "Show the full chat history"
-    cmd.register(History)
+    LLM.command "show-history" do |cmd|
+      cmd.description "Show the full chat history"
+      cmd.register(self)
+    end
   end
 end
