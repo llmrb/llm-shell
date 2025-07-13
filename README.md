@@ -83,7 +83,7 @@ with one file per command. The commands are loaded at boot time. See the
 [file-import](lib/llm/shell/commands/file_import.rb),
 [dir-import](lib/llm/shell/commands/dir_import.rb),
 and
-[history](lib/llm/shell/commands/history.rb)
+[show-history](lib/llm/shell/commands/show_history.rb)
 commands for realistic examples:
 
 ```ruby
