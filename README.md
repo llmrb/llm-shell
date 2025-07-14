@@ -83,9 +83,9 @@ with one file per command. The commands are loaded at boot time. See the
 [file-import](lib/llm/shell/commands/file_import.rb),
 [dir-import](lib/llm/shell/commands/dir_import.rb),
 [show-history](lib/llm/shell/commands/show_history.rb),
-and
 [clear-screen](lib/llm/shell/commands/clear_screen.rb)
-commands for realistic examples:
+and [system-prompt](lib/llm/shell/commands/system_prompt.rb)
+commands for more realistic examples:
 
 ```ruby
 LLM.command "say-hello" do |cmd|

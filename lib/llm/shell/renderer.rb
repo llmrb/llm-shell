@@ -18,6 +18,8 @@ class LLM::Shell
         render_message(message, :yellow)
       elsif message.assistant?
         render_message(message, :green)
+      elsif message.system?
+        render_message(message, :red)
       else
         raise RenderError.new("no handler for message role #{message.role}")
       end
