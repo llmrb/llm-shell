@@ -2,8 +2,8 @@
 
 class LLM::Shell::Command
   class ShowHistory
-    require_relative "mixin"
-    include Mixin
+    require_relative "utils"
+    include Utils
 
     ##
     # @param [LLM::Shell::Context] context

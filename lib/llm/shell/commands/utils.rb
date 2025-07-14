@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LLM::Shell::Command
-  module Mixin
+  module Utils
     private
 
     def import(file)

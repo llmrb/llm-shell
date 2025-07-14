@@ -2,8 +2,8 @@
 
 class LLM::Shell::Command
   class DirImport
-    require_relative "mixin"
-    include Mixin
+    require_relative "utils"
+    include Utils
 
     ##
     # Completes a path with a wildcard.
