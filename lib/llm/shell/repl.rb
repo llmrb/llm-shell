@@ -88,7 +88,7 @@ class LLM::Shell
       IO.popen("less -FRX", "w") do
         _1.write formatter(unread).format!(:user), "\n"
         _1.write formatter(unread).format!(:assistant), "\n"
-      end
+      end unless unread.empty?
     end
 
     attr_reader :bot, :console, :io, :default, :options
