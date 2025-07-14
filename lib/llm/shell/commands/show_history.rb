@@ -8,13 +8,13 @@ class LLM::Shell::Command
     ##
     # @param [LLM::Shell::Context] context
     #  The context of the command
-    # @return [LLM::Shell::Command::FileImport]
+    # @return [LLM::Shell::Command::ShowHistory]
     def initialize(context)
       @context = context
     end
 
     ##
-    # Imports one or more globbed files.
+    # Emits the full chat history to standard output
     # @return [void]
     def call
       clear_screen
