@@ -3,6 +3,7 @@
 class LLM::Shell
   class Renderer
     RenderError = Class.new(RuntimeError)
+    include Command::Utils
 
     ##
     # @param [LLM::Message] message
@@ -30,8 +31,13 @@ class LLM::Shell
     def render_message(message, color)
       role  = Paint[message.role, :bold, color]
       title = "#{role} says: "
-      body  = wrap(message.content)
-      [title, "\n", markdown(body), "\n"].join
+      if message.content =~ file_pattern
+        path = message.content.match(file_pattern) ? Regexp.last_match[1] : nil
+        body = "<file path=#{path} />"
+      else
+        body  = markdown(wrap(message.content))
+      end
+      [title, "\n", body, "\n"].join
     end
 
     attr_reader :message

@@ -3,7 +3,7 @@
 class LLM::Shell
   class Formatter
     FormatError = Class.new(RuntimeError)
-    FILE_REGEXP = /\A--- START: (.+?) ---/
+    include Command::Utils
 
     def initialize(messages)
       @messages = messages.reject(&:tool_call?)
@@ -23,7 +23,7 @@ class LLM::Shell
       messages.filter_map do |message|
         next unless message.user?
         next unless String === message.content
-        next unless message.content !~ FILE_REGEXP
+        next unless message.content !~ file_pattern
         render(message.tap(&:read!))
       end.join("\n")
     end

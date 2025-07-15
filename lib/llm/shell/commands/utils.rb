@@ -7,12 +7,13 @@ class LLM::Shell::Command
     def import(file)
       return unless File.file?(file)
       bot.chat [
-        "--- START: #{file} ---",
+        "<file path=\"#{file}\">",
         File.read(file),
-        "--- END: #{file} ---"
+        "</file>"
       ].join("\n")
     end
 
+    def file_pattern = /\A<file path=(.+?)>/
     def bot = @context.bot
     def io = @context.io
   end

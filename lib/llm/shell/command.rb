@@ -2,6 +2,7 @@
 
 class LLM::Shell
   class Command
+    require_relative "commands/utils"
     Context = Struct.new(:bot, :io)
 
     ##
