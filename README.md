@@ -160,6 +160,8 @@ Usage: llm-shell [OPTIONS]
     -o, --port [PORT]        Optional. Sometimes required by ollama.
     -f, --files [GLOB]       Optional. Glob pattern(s) separated by a comma.
     -t, --tools [TOOLS]      Optional. One or more tool names to load automatically.
+    -r, --prompt [PROMPT]    Optional. The prompt to use.
+    -v, --version            Optional. Print the version and exit
 ```
 
 ## Install
