@@ -82,8 +82,8 @@ class LLM::Shell
 
     def smart_quotes
       {
-        :lsquo => "'", :rsquo => "'",
-        :ldquo => '"', :rdquo => '"'
+        lsquo: "'", rsquo: "'",
+        ldquo: '"', rdquo: '"'
       }
     end
   end
