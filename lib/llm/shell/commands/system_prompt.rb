@@ -16,7 +16,7 @@ class LLM::Shell::Command
     ##
     # Emits the system prompt to standard output
     # @return [void]
-    def call = puts render(bot.messages.to_a[0])
+    def call = puts render(bot.messages[0])
 
     private
 
