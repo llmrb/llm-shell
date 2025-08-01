@@ -49,18 +49,13 @@ class LLM::Shell
            "\n\n", coderay(code, lang),
            "\n", Paint["<<< #{lang}", :blue, :bold]].join
         end
+      when :smart_quote
+        smart_quotes[node.value]
       when :text
         node.value
       else
         node.children.map { visit(_1) }.join
       end
-    end
-
-    def levels
-      {
-        1 => :green, 2 => :blue, 3 => :green,
-        4 => :yellow, 5 => :red, 6 => :purple
-      }
     end
 
     def preprocessor(text)
@@ -76,6 +71,20 @@ class LLM::Shell
     rescue ArgumentError
       lang = "text"
       retry
+    end
+
+    def levels
+      {
+        1 => :green, 2 => :blue, 3 => :green,
+        4 => :yellow, 5 => :red, 6 => :purple
+      }
+    end
+
+    def smart_quotes
+      {
+        :lsquo => "'", :rsquo => "'",
+        :ldquo => '"', :rdquo => '"'
+      }
     end
   end
 end
