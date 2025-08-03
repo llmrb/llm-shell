@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
     "lib/*.rb", "lib/**/*.rb",
     "libexec/*", "libexec/**/*",
     "share/llm-shell/prompts/*",
-    "bin/*", "llm.gemspec"
+    "bin/*", "llm-shell.gemspec"
   ]
   spec.require_paths = ["lib"]
   spec.executables = ["llm-shell"]
