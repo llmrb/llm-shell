@@ -16,7 +16,11 @@ class LLM::Shell::Command
     ##
     # Emits the system prompt to standard output
     # @return [void]
-    def call = puts render(bot.messages[0])
+    def call
+      pager do |io|
+        io.write render(bot.messages[0])
+      end
+    end
 
     private
 
