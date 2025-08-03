@@ -5,7 +5,7 @@ console that can interact with multiple Large Language Models
 (LLMs). It serves as both a demo of the [llmrb/llm](https://github.com/llmrb/llm)
 library and a tool to help improve the library through real-world
 usage and feedback. Jump to the [Demos](#demos) section to see
-it in action!
+it in action.
 
 ## Features
 
@@ -119,16 +119,12 @@ path `${HOME}/.llm-shell/config.yml` and it has the following format:
 # ~/.config/llm-shell.yml
 openai:
   key: YOURKEY
-  model: gpt-4o-mini
 gemini:
   key: YOURKEY
-  model: gemini-2.0-flash-001
 anthropic:
   key: YOURKEY
-  model: claude-3-7-sonnet-20250219
 deepseek:
   key: YOURKEY
-  model: deepseek-chat
 ollama:
   host: localhost
   model: deepseek-coder:6.7b
