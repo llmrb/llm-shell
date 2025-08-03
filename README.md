@@ -39,6 +39,11 @@ it in action.
   <img src="share/llm-shell/examples/files.gif">
 </details>
 
+<details>
+  <summary><b>3. Advanced features: markdown, syntax highlighting</b></summary>
+  <img src="share/llm-shell/examples/codegen.gif">
+</details>
+
 ## Customization
 
 #### Functions
