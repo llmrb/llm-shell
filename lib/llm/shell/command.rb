@@ -4,8 +4,12 @@ class LLM::Shell
   class Command
     require_relative "commands/utils"
 
+    ##
+    # @api private
     class Context < Struct.new(:bot, :io)
-      def pager(...) = LLM::Shell.pager(...)
+      def pager(...)
+        LLM::Shell.pager(...)
+      end
     end
 
     ##
