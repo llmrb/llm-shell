@@ -3,7 +3,10 @@
 class LLM::Shell
   class Command
     require_relative "commands/utils"
-    Context = Struct.new(:bot, :io)
+
+    class Context < Struct.new(:bot, :io)
+      def pager(...) = LLM::Shell.pager(...)
+    end
 
     ##
     # Returns the underlying command object

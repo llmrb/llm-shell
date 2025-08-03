@@ -17,28 +17,30 @@ class LLM::Shell::Command
     # Prints help
     # @return [void]
     def call
-      render_commands
-      render_functions
+      pager do |io|
+        render_commands(io)
+        render_functions(io)
+      end
     end
 
     private
 
-    def render_commands
-      io.rewind.print(Paint["Commands", :bold, :underline]).end.end
+    def render_commands(io)
+      io.print(Paint["Commands", :bold, :underline], "\n\n")
       commands.each.with_index(1) do |command, index|
-        io.rewind.print(command_name(command, index, :red)).end
-        io.rewind.print(command_desc(command)).end.end
+        io.puts(command_name(command, index, :red))
+        io.puts(command_desc(command), "\n\n")
       end
     end
 
-    def render_functions
-      io.rewind.print(Paint["Functions", :bold, :underline]).end.end
+    def render_functions(io)
+      io.print(Paint["Functions", :bold, :underline], "\n\n")
       if functions.empty?
-        io.rewind.print(Paint["No functions available", :yellow]).end.end
+        io.print(Paint["No functions available", :yellow], "\n\n")
       else
         functions.each.with_index(1) do |fn, index|
-          io.rewind.print(command_name(fn, index, :green)).end
-          io.rewind.print(command_desc(fn)).end.end
+          io.print(command_name(fn, index, :green), "\n")
+          io.print(command_desc(fn), "\n\n")
         end
       end
     end

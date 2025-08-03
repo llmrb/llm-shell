@@ -25,6 +25,13 @@ class LLM::Shell
   Dir[File.join(__dir__, "shell", "commands", "*.rb")].each { require(_1) }
 
   ##
+  # Opens a pager
+  # @return [void]
+  def self.pager(...)
+    IO.popen("less -FRX", "w", ...)
+  end
+
+  ##
   # @return [String]
   def self.home
     File.join Dir.home, ".llm-shell"

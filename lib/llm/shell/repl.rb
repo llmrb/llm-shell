@@ -85,9 +85,9 @@ class LLM::Shell
     end
 
     def emit
-      IO.popen("less -FRX", "w") do
-        _1.write formatter(unread).format!(:user), "\n"
-        _1.write formatter(unread).format!(:assistant), "\n"
+      LLM::Shell.pager do |io|
+        io.write formatter(unread).format!(:user), "\n"
+        io.write formatter(unread).format!(:assistant), "\n"
       end unless unread.empty?
     end
 

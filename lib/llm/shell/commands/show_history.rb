@@ -24,7 +24,7 @@ class LLM::Shell::Command
     private
 
     def emit
-      IO.popen("less -FRX", "w") do |io|
+      pager do |io|
         messages.each.with_index do |message, index|
           next if index <= 1
           io << render(message) << "\n"

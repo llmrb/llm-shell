@@ -13,8 +13,9 @@ class LLM::Shell::Command
       ].join("\n")
     end
 
-    def file_pattern = /\A<file path=(.+?)>/
     def bot = @context.bot
     def io = @context.io
+    def pager(...) = @context.pager(...)
+    def file_pattern = /\A<file path=(.+?)>/
   end
 end
