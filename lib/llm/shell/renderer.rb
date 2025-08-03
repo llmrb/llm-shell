@@ -28,6 +28,8 @@ class LLM::Shell
 
     private
 
+    attr_reader :message
+
     def render_message(message, color)
       role  = Paint[message.role, :bold, color]
       title = "#{role} says: "
@@ -35,13 +37,9 @@ class LLM::Shell
         path = message.content.match(file_pattern) ? Regexp.last_match[1] : nil
         body = "<file path=#{path} />"
       else
-        body  = markdown(wrap(message.content))
+        body = Markdown.render(message.content)
       end
       [title, "\n", body, "\n"].join
     end
-
-    attr_reader :message
-    def markdown(text) = Markdown.new(text).to_ansi
-    def wrap(text, width = 80) = text.gsub(/(.{1,#{width}})(\s+|\Z)/, "\\1\n")
   end
 end

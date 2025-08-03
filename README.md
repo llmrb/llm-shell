@@ -36,7 +36,7 @@ it in action.
 
 <details>
   <summary><b>2. Add files as conversation context</b></summary>
-  <img src="share/llm-shell/examples/files-runtime.gif">
+  <img src="share/llm-shell/examples/files.gif">
 </details>
 
 ## Customization
