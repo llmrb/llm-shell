@@ -17,19 +17,31 @@ class LLM::Shell::Command
     # Prints help
     # @return [void]
     def call
+      render_commands
+      render_functions
+    end
+
+    private
+
+    def render_commands
       io.rewind.print(Paint["Commands", :bold, :underline]).end.end
       commands.each.with_index(1) do |command, index|
         io.rewind.print(command_name(command, index, :red)).end
         io.rewind.print(command_desc(command)).end.end
       end
-      io.rewind.print(Paint["Functions", :bold, :underline]).end.end
-      functions.each.with_index(1) do |fn, index|
-        io.rewind.print(command_name(fn, index, :green)).end
-        io.rewind.print(command_desc(fn)).end.end
-      end
     end
 
-    private
+    def render_functions
+      io.rewind.print(Paint["Functions", :bold, :underline]).end.end
+      if functions.empty?
+        io.rewind.print(Paint["No functions available", :yellow]).end.end
+      else
+        functions.each.with_index(1) do |fn, index|
+          io.rewind.print(command_name(fn, index, :green)).end
+          io.rewind.print(command_desc(fn)).end.end
+        end
+      end
+    end
 
     def commands = LLM.commands.values.sort_by(&:name)
     def functions = LLM.functions.values.sort_by(&:name)
