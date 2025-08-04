@@ -49,15 +49,18 @@ it in action.
 #### Functions
 
 > For security and safety reasons, a user must confirm the execution of
-> all function calls before they happen and also add the function to
-> an allowlist before it will be loaded by llm-shell automatically
-> at boot time.
+> all function calls before they happen
 
-The `~/.llm-shell/tools/` directory can contain one or more
-[llmrb/llm](https://github.com/llmrb/llm) functions that the
-LLM can call once you confirm you are okay with executing the
-code locally (along with any arguments it provides). See the
-earlier demo for an example:
+llm-shell can be extended with your own functions (also known as tool calls).
+This can be done by creating a Ruby file in the `~/.llm-shell/functions/`
+directory &ndash; with one file per function. The functions are
+loaded at boot time. The functions are shared with the LLM and the LLM
+can request their execution. The LLM is also made aware of a function's
+return value after it has been called.
+See the
+[functions/](lib/llm/shell/functions/)
+directory for more examples:
+
 
 ```ruby
 LLM.function(:system) do |fn|
@@ -152,7 +155,6 @@ Usage: llm-shell [OPTIONS]
     -h, --host [HOST]        Optional. Sometimes required by ollama.
     -o, --port [PORT]        Optional. Sometimes required by ollama.
     -f, --files [GLOB]       Optional. Glob pattern(s) separated by a comma.
-    -t, --tools [TOOLS]      Optional. One or more tool names to load automatically.
     -r, --prompt [PROMPT]    Optional. The prompt to use.
     -v, --version            Optional. Print the version and exit
 ```

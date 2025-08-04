@@ -20,6 +20,7 @@ class LLM::Shell
   require_relative "shell/completion"
   require_relative "shell/version"
 
+
   ##
   # Load all commands
   Dir[File.join(__dir__, "shell", "commands", "*.rb")].each { require(_1) }
@@ -40,7 +41,7 @@ class LLM::Shell
   ##
   # @return [Array<String>]
   def self.tools
-    Dir[File.join(home, "tools", "*.rb")]
+    Dir[*TOOLGLOBS]
   end
 
   ##
@@ -48,6 +49,12 @@ class LLM::Shell
   def self.commands
     Dir[File.join(home, "commands", "*.rb")]
   end
+
+  TOOLGLOBS = [
+    File.join(home, "tools", "*.rb"),
+    File.join(__dir__, "shell", "functions", "*.rb")
+  ].freeze
+  private_constant :TOOLGLOBS
 
   ##
   # @param [Hash] options
@@ -70,14 +77,8 @@ class LLM::Shell
   private
 
   def tools
-    LLM::Shell.tools.filter_map do |path|
-      name = File.basename(path, File.extname(path))
-      if options.tools.include?(name)
-        print Paint["llm-shell: ", :green], "load #{name} tool", "\n"
-        eval File.read(path), TOPLEVEL_BINDING, path, 1
-      else
-        print Paint["llm-shell: ", :yellow], "skip #{name} tool", "\n"
-      end
+    LLM::Shell.tools.map do |path|
+      eval File.read(path), TOPLEVEL_BINDING, path, 1
     end.grep(LLM::Function)
   end
 

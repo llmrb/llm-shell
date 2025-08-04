@@ -39,7 +39,7 @@ class LLM::Shell::Command
         io.print(Paint["No functions available", :yellow], "\n\n")
       else
         functions.each.with_index(1) do |fn, index|
-          io.print(command_name(fn, index, :green), "\n")
+          io.print(command_name(fn, index, :blue), "\n")
           io.print(command_desc(fn), "\n\n")
         end
       end
