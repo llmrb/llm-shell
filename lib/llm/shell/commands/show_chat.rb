@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class LLM::Shell::Command
-  class ShowHistory
+  class ShowChat
     require_relative "utils"
     include Utils
 
     ##
     # @param [LLM::Shell::Context] context
     #  The context of the command
-    # @return [LLM::Shell::Command::ShowHistory]
+    # @return [LLM::Shell::Command::ShowChat]
     def initialize(context)
       @context = context
     end
@@ -37,7 +37,7 @@ class LLM::Shell::Command
     def messages = bot.messages
     def render(message) = LLM::Shell::Renderer.new(message).render
 
-    LLM.command "show-history" do |cmd|
+    LLM.command "show-chat" do |cmd|
       cmd.description "Show the full chat history"
       cmd.register(self)
     end
