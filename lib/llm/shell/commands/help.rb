@@ -51,7 +51,7 @@ class LLM::Shell::Command
     def command_desc(command) = command.description || "No description"
 
     LLM.command "help" do |cmd|
-      cmd.description "Shows help"
+      cmd.description "Show the help menu"
       cmd.register(self)
     end
   end

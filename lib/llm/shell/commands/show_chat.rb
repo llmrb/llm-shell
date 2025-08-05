@@ -38,7 +38,7 @@ class LLM::Shell::Command
     def render(message) = LLM::Shell::Renderer.new(message).render
 
     LLM.command "show-chat" do |cmd|
-      cmd.description "Show the full chat history"
+      cmd.description "Show the chat"
       cmd.register(self)
     end
   end

@@ -41,7 +41,7 @@ class LLM::Shell::Command
     private
 
     LLM.command "dir-import" do |cmd|
-      cmd.description "Share the contents of a directory with the LLM"
+      cmd.description "Share a directory with the LLM"
       cmd.register(self)
     end
   end

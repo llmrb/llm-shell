@@ -24,7 +24,7 @@ class LLM::Shell::Command
     def clear_screen = console.clear_screen
 
     LLM.command "clear-screen" do |cmd|
-      cmd.description "Clears the screen"
+      cmd.description "Clear the screen"
       cmd.register(self)
     end
   end

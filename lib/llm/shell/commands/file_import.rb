@@ -33,7 +33,7 @@ class LLM::Shell::Command
     private
 
     LLM.command "file-import" do |cmd|
-      cmd.description "Share one or more files with the LLM"
+      cmd.description "Share a file with the LLM"
       cmd.register(self)
     end
   end
