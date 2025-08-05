@@ -31,13 +31,18 @@ class LLM::Shell
     attr_reader :message
 
     def render_message(message, color)
-      role  = Paint[message.role, :bold, color]
-      title = "#{role} says: "
-      if message.content =~ file_pattern
-        path = message.content.match(file_pattern) ? Regexp.last_match[1] : nil
+      role    = Paint[message.role, :bold, color]
+      title   = "#{role} says: "
+      content = message.content
+      if message.tool_call?
+        body = "Tool call(s) request"
+      elsif message.tool_return?
+        body = "Tool call(s) return"
+      elsif content =~ file_pattern
+        path = content.match(file_pattern) ? Regexp.last_match[1] : nil
         body = "<file path=#{path} />"
       else
-        body = Markdown.render(message.content)
+        body = Markdown.render(content)
       end
       [title, "\n", body, "\n"].join
     end
