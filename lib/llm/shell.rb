@@ -20,7 +20,6 @@ class LLM::Shell
   require_relative "shell/completion"
   require_relative "shell/version"
 
-
   ##
   # Load all commands
   Dir[File.join(__dir__, "shell", "commands", "*.rb")].each { require(_1) }

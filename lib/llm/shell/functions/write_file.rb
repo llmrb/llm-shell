@@ -19,4 +19,3 @@ module LLM::Shell::Functions
     end
   end
 end
-
