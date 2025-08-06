@@ -35,6 +35,7 @@ class LLM::Shell::Command
     LLM.command "file-import" do |cmd|
       cmd.description "Share a file with the LLM"
       cmd.register(self)
+      cmd.builtin!
     end
   end
 end

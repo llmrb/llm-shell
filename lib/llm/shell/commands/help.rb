@@ -27,9 +27,12 @@ class LLM::Shell::Command
 
     def render_commands(io)
       io.print(Paint["Commands", :bold, :underline], "\n\n")
-      commands.each.with_index(1) do |command, index|
-        io.puts(command_name(command, index, :red))
-        io.puts(command_desc(command), "\n\n")
+      io.print(Paint["Builtin", :bold], "\n\n")
+      render_command_subset commands.select(&:builtin?), io
+      io.print(Paint["User", :bold], "\n\n")
+      render_command_subset commands.reject(&:builtin?), io
+      if commands.reject(&:builtin?).empty?
+        io.print(Paint["No user commands available", :yellow], "\n\n")
       end
     end
 
@@ -45,6 +48,13 @@ class LLM::Shell::Command
       end
     end
 
+    def render_command_subset(commands, io)
+      commands.each.with_index(1) do |command, index|
+        io.print(command_name(command, index, :cyan), "\n")
+        io.print(command_desc(command), "\n\n")
+      end
+    end
+
     def commands = LLM.commands.values.sort_by(&:name)
     def functions = LLM.functions.values.sort_by(&:name)
     def command_name(command, index, bgcolor) = [Paint[" #{index} ", :white, bgcolor, :bold], " ", Paint[command.name, :bold]].join
@@ -53,6 +63,7 @@ class LLM::Shell::Command
     LLM.command "help" do |cmd|
       cmd.description "Show the help menu"
       cmd.register(self)
+      cmd.builtin!
     end
   end
 end

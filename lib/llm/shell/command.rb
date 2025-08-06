@@ -70,5 +70,19 @@ class LLM::Shell
         @context.instance_exec(*argv, &@object)
       end
     end
+
+    ##
+    # @return [Boolean]
+    #  Returns true if this is a builtin command
+    def builtin?
+      @builtin
+    end
+
+    ##
+    # Mark this command as builtin command
+    # @return [void]
+    def builtin!
+      @builtin = true
+    end
   end
 end

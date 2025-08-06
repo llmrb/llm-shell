@@ -29,6 +29,7 @@ class LLM::Shell::Command
     LLM.command "system-prompt" do |cmd|
       cmd.description "Show the system prompt"
       cmd.register(self)
+      cmd.builtin!
     end
   end
 end
