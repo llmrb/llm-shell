@@ -7,6 +7,7 @@ require "llm"
 require "paint"
 
 class LLM::Shell
+  require_relative "function"
   require_relative "../io/line"
   require_relative "shell/command"
   require_relative "shell/command/extension"

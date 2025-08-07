@@ -16,6 +16,7 @@ module LLM::Shell::Functions
         schema.object(path: schema.string.required)
       end
       fn.register(self)
+      fn.builtin!
     end
   end
 end

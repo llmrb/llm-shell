@@ -38,13 +38,12 @@ class LLM::Shell::Command
 
     def render_functions(io)
       io.print(Paint["Functions", :bold, :underline], "\n\n")
-      if functions.empty?
-        io.print(Paint["No functions available", :yellow], "\n\n")
-      else
-        functions.each.with_index(1) do |fn, index|
-          io.print(command_name(fn, index, :blue), "\n")
-          io.print(command_desc(fn), "\n\n")
-        end
+      io.print(Paint["Builtin", :bold], "\n\n")
+      render_function_subset functions.select(&:builtin?), io
+      io.print(Paint["User", :bold], "\n\n")
+      render_function_subset functions.reject(&:builtin?), io
+      if functions.reject(&:builtin?).empty?
+        io.print(Paint["No user functions available", :yellow], "\n\n")
       end
     end
 
@@ -52,6 +51,13 @@ class LLM::Shell::Command
       commands.each.with_index(1) do |command, index|
         io.print(command_name(command, index, :cyan), "\n")
         io.print(command_desc(command), "\n\n")
+      end
+    end
+
+    def render_function_subset(functions, io)
+      functions.each.with_index(1) do |function, index|
+        io.print(command_name(function, index, :blue), "\n")
+        io.print(command_desc(function), "\n\n")
       end
     end
 
