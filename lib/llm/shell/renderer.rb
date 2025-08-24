@@ -38,6 +38,8 @@ class LLM::Shell
         body = "Tool call(s) request"
       elsif message.tool_return?
         body = "Tool call(s) return"
+      elsif Array === content
+        body = content.map { |c| render_message(c, color) }.join("\n")
       elsif content =~ file_pattern
         path = content.match(file_pattern) ? Regexp.last_match[1] : nil
         body = "<file path=#{path} />"

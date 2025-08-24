@@ -67,21 +67,24 @@ class LLM::Shell
     end
 
     def eval
+      callables = []
+      cancels = []
+      results = []
       functions.each do |function|
         print Paint["system", :bold, :red], " says: ", "\n"
         print "function: ", function.name, "\n"
         print "arguments: ", function.arguments, "\n"
-        print "Do you want to call it? "
-        input = $stdin.gets.chomp.downcase
+        input = Readline.readline("Do you want to call it ? ", true)
         puts
         if %w(y yes yep yeah ok).include?(input)
-          chat function.call
-          unread.tap { io.rewind }
+          callables << function
         else
-          chat function.cancel
-          chat "I decided to not run the function this time. Maybe next time."
+          cancels << function
         end
       end
+      results.concat callables.map(&:call)
+      results.concat cancels.map(&:cancel)
+      bot.chat(results)
     end
 
     def emit
