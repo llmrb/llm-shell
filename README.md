@@ -4,8 +4,7 @@ llm-shell is an extensible, developer-oriented command-line
 console that can interact with multiple Large Language Models
 (LLMs). It serves as both a demo of the [llmrb/llm](https://github.com/llmrb/llm)
 library and a tool to help improve the library through real-world
-usage and feedback. Jump to the [Demos](#demos) section to see
-it in action.
+usage and feedback.
 
 ## Features
 
@@ -27,21 +26,11 @@ it in action.
 - 📄 Deploys the less pager for long outputs
 - 📝 Advanced Markdown formatting and output
 
-## Demos
+## Demo
 
 <details>
-  <summary><b>1. An introduction to tool calls</b></summary>
-  <img src="share/llm-shell/examples/toolcalls.gif/">
-</details>
-
-<details>
-  <summary><b>2. Add files as conversation context</b></summary>
-  <img src="share/llm-shell/examples/files.gif">
-</details>
-
-<details>
-  <summary><b>3. Advanced features: markdown, syntax highlighting</b></summary>
-  <img src="share/llm-shell/examples/codegen.gif">
+  <summary>Reveal demo</summary>
+  <img src="share/llm-shell/examples/demo.png/">
 </details>
 
 ## Customization
