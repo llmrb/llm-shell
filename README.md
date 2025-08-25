@@ -30,6 +30,11 @@ usage and feedback.
 
 <details>
   <summary>Reveal demo</summary>
+  <img src="share/llm-shell/examples/demo.gif/">
+</details>
+
+<details>
+  <summary>Reveal demo</summary>
   <img src="share/llm-shell/examples/demo.png/">
 </details>
 
