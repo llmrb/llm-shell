@@ -73,7 +73,7 @@ class LLM::Shell
       functions.each do |function|
         print Paint["system", :bold, :red], " says: ", "\n"
         print "function: ", function.name, "\n"
-        print "arguments: ", function.arguments, "\n"
+        print "arguments: ", function.arguments.to_h.size, "\n"
         input = Readline.readline("Do you want to call it ? ", true)
         puts
         if %w(y yes yep yeah ok).include?(input)
