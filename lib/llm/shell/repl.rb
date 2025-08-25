@@ -35,7 +35,7 @@ class LLM::Shell
     def start
       loop do
         read
-        eval
+        eval while functions.any?
         emit
       rescue LLM::ResponseError => ex
         print Paint[ex.response.class, :red], "\n"
