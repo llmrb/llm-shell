@@ -47,10 +47,11 @@ usage and feedback.
 
 llm-shell can be extended with your own functions (also known as tool calls).
 This can be done by creating a Ruby file in the `~/.llm-shell/functions/`
-directory &ndash; with one file per function. The functions are
-loaded at boot time. The functions are shared with the LLM and the LLM
-can request their execution. The LLM is also made aware of a function's
-return value after it has been called.
+directory &ndash; with one file per function.
+
+The functions are loaded at boot time. The functions are shared with
+the LLM and the LLM can request their execution. The LLM is also made
+aware of a function's return value after it has been called.
 See the
 [functions/](lib/llm/shell/functions/)
 directory for more examples:
