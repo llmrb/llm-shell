@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
-require "optparse"
-require "readline"
-require "yaml"
-require "llm"
-require "paint"
+module LLM
+  $:.concat Dir[File.join(__dir__, "shell", "internal", "*", "lib")]
+  require "paint"
+  require "reline"
+  require "coderay"
+  require "llm"
+end
 
 class LLM::Shell
+  require "optparse"
+  require "yaml"
   require_relative "function"
   require_relative "../io/line"
   require_relative "shell/command"

@@ -1,2 +1,3 @@
 /.gems/
+internal/
 /Gemfile.lock

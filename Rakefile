@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+namespace :deps do
+  desc "Install dependencies into place"
+  task :install do
+    Dir[File.join("packages", "*")].each do |dir|
+      target = File.join(__dir__, "lib", "llm", "shell", "internal", File.basename(dir))
+      mkdir_p(target)
+      cp_r File.join(dir, "lib"), target
+      cp_r Dir[File.join(dir, "*LICENSE*")], target
+      cp_r Dir[File.join(dir, "license_*")], target
+      cp_r Dir[File.join(dir, "BSDL")], target
+    end
+  end
+end
+
 namespace :asciinema do
   task :rec, [:outfile] do |t, args|
     outfile = File.join("share", "llm-shell", "casts", args[:outfile])

@@ -1,0 +1,12 @@
+[submodule "packages/paint"]
+	path = packages/paint
+	url = https://github.com/janlelis/paint
+[submodule "packages/reline"]
+	path = packages/reline
+	url = https://github.com/ruby/reline
+[submodule "packages/coderay"]
+	path = packages/coderay
+	url = https://github.com/rubychan/coderay
+[submodule "packages/llm.rb"]
+	path = packages/llm.rb
+	url = https://github.com/llmrb/llm
