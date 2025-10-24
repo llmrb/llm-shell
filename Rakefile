@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+desc "Run formatter"
+task :fmt do
+  files = `git ls-files`.each_line
+  files = files.filter_map { _1.chomp.end_with?(".rb") ? _1.chomp : nil }
+  system "bundle exec rubocop -c .rubocop.yml -A #{files.join(' ')}"
+end
+
 namespace :deps do
   desc "Initialize git submodules"
   task :init do
