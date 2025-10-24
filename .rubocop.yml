@@ -47,3 +47,5 @@ Layout/ArrayAlignment:
   Enabled: false
 Security/Eval:
   Enabled: false
+Lint/AssignmentInCondition:
+  Enabled: false
