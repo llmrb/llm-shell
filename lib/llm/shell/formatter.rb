@@ -3,7 +3,6 @@
 class LLM::Shell
   class Formatter
     FormatError = Class.new(RuntimeError)
-    include Command::Utils
 
     def initialize(messages)
       @messages = messages.reject(&:tool_call?)

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class LLM::Shell::Command
-  class DirImport
-    require_relative "utils"
-    include Utils
+class LLM::Shell
+  class Command::DirImport < Command
+    name "dir-import"
+    description "Import the contents of a directory"
 
     ##
     # Completes a path with a wildcard.
@@ -13,14 +13,6 @@ class LLM::Shell::Command
     #  Returns the completed path(s)
     def self.complete(path)
       Dir["#{path}*"]
-    end
-
-    ##
-    # @param [LLM::Shell::Context] context
-    #  The context of the command
-    # @return [LLM::Shell::Command::DirImport]
-    def initialize(context)
-      @context = context
     end
 
     ##
@@ -36,13 +28,6 @@ class LLM::Shell::Command
           import File.join(dir, file)
         end
       end
-    end
-
-    private
-
-    LLM.command "dir-import" do |cmd|
-      cmd.description "Share a directory with the LLM"
-      cmd.register(self)
     end
   end
 end

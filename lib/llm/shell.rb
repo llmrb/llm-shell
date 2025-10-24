@@ -11,24 +11,6 @@ module LLM
 end
 
 class LLM::Shell
-  require "yaml"
-  require_relative "function"
-  require_relative "shell/command"
-  require_relative "shell/command/extension"
-  require_relative "shell/markdown"
-  require_relative "shell/renderer"
-  require_relative "shell/formatter"
-  require_relative "shell/default"
-  require_relative "shell/options"
-  require_relative "shell/repl"
-  require_relative "shell/config"
-  require_relative "shell/completion"
-  require_relative "shell/version"
-
-  ##
-  # Load all commands
-  Dir[File.join(__dir__, "shell", "commands", "*.rb")].each { require(_1) }
-
   ##
   # Opens a pager
   # @return [void]
@@ -59,8 +41,33 @@ class LLM::Shell
   ##
   # @return [Array<String>]
   def self.commands
-    Dir[File.join(home, "commands", "*.rb")]
+    @commands ||= []
   end
+
+  ##
+  # Returns an instance of {LLM::Command LLM::Command}, or nil.
+  # @return [LLM::Command, nil]
+  def self.find_command(name)
+    commands.find { _1.name == name }
+  end
+
+  require "yaml"
+  require_relative "function"
+  require_relative "shell/command"
+  require_relative "shell/command/extension"
+  require_relative "shell/markdown"
+  require_relative "shell/renderer"
+  require_relative "shell/formatter"
+  require_relative "shell/default"
+  require_relative "shell/options"
+  require_relative "shell/repl"
+  require_relative "shell/config"
+  require_relative "shell/completion"
+  require_relative "shell/version"
+
+  ##
+  # Load all commands
+  Dir[File.join(__dir__, "shell", "commands", "*.rb")].each { require(_1) }
 
   TOOLGLOBS = [
     File.join(home, "tools", "*.rb"),
@@ -92,6 +99,7 @@ class LLM::Shell
     LLM::Shell.tools.map do |path|
       eval File.read(path), TOPLEVEL_BINDING, path, 1
     end
+    []
   end
 
   attr_reader :options, :bot, :repl

@@ -1,17 +1,9 @@
 # frozen_string_literal: true
 
-class LLM::Shell::Command
-  class Help
-    require_relative "utils"
-    include Utils
-
-    ##
-    # @param [LLM::Shell::Context] context
-    #  The context of the command
-    # @return [LLM::Shell::Command::Help]
-    def initialize(context)
-      @context = context
-    end
+class LLM::Shell
+  class Command::Help < Command
+    name "help"
+    description "Show help"
 
     ##
     # Prints help
@@ -56,10 +48,5 @@ class LLM::Shell::Command
     def functions = LLM.functions.values.sort_by(&:name)
     def name(command, index, bgcolor) = [Paint[" #{index} ", :white, bgcolor, :bold], " ", Paint[command.name, :bold]].join
     def desc(command) = command.description || "No description"
-
-    LLM.command "help" do |cmd|
-      cmd.description "Show the help menu"
-      cmd.register(self)
-    end
   end
 end

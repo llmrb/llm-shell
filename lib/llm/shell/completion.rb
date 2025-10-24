@@ -12,7 +12,7 @@ class LLM::Shell
     ##
     # @return [LLM::Shell::Completion]
     def initialize
-      @commands = LLM.commands
+      @commands = LLM::Shell.commands.map { [_1.name, _1] }.to_h
     end
 
     ##

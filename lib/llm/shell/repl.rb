@@ -21,7 +21,7 @@ class LLM::Shell
     # Performs initial setup
     # @return [void]
     def setup
-      LLM::Shell.commands.each { |file| require file }
+      Dir[File.join(LLM::Shell.home, "commands", "*.rb")].each { require(_1) }
       Reline.completion_proc = Completion.to_proc
       chat options.prompt, role: options.default.role
       files.each { chat ["--- START: #{_1} ---", File.read(_1), "--- END: #{_1} ---"].join("\n") }
@@ -54,11 +54,9 @@ class LLM::Shell
     def read
       input = Reline.readline("llm> ", true) || throw(:exit, 0)
       words = input.split(" ")
-      if LLM.commands[words[0]]
-        cmd  = LLM.commands[words[0]]
+      if cmd = LLM::Shell.find_command(words[0])
         argv = words[1..]
-        cmd.setup(bot, io)
-        cmd.call(*argv)
+        cmd.new(bot, io).call(*argv)
       else
         chat input.tap { clear_screen }
         io.rewind.print(Paint["Thinking", :bold])

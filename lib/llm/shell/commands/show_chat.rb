@@ -1,17 +1,9 @@
 # frozen_string_literal: true
 
-class LLM::Shell::Command
-  class ShowChat
-    require_relative "utils"
-    include Utils
-
-    ##
-    # @param [LLM::Shell::Context] context
-    #  The context of the command
-    # @return [LLM::Shell::Command::ShowChat]
-    def initialize(context)
-      @context = context
-    end
+class LLM::Shell
+  class Command::ShowChat < Command
+    name "show-chat"
+    description "Show the chat"
 
     ##
     # Emits the full chat history to standard output
@@ -36,10 +28,5 @@ class LLM::Shell::Command
     def clear_screen = console.clear_screen
     def messages = bot.messages
     def render(message) = LLM::Shell::Renderer.new(message).render
-
-    LLM.command "show-chat" do |cmd|
-      cmd.description "Show the chat"
-      cmd.register(self)
-    end
   end
 end

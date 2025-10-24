@@ -3,7 +3,6 @@
 class LLM::Shell
   class Renderer
     RenderError = Class.new(RuntimeError)
-    include Command::Utils
 
     ##
     # @param [LLM::Message] message
