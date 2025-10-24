@@ -12,13 +12,6 @@ end
 
 class LLM::Shell
   ##
-  # Opens a pager
-  # @return [void]
-  def self.pager(...)
-    IO.popen("less -FRX", "w", ...)
-  end
-
-  ##
   # Returns the lib/ directory
   # @return [String]
   def self.root
@@ -55,6 +48,13 @@ class LLM::Shell
   # @return [Regexp]
   def self.pattern
     /\A<file path=(.+?)>/
+  end
+
+  ##
+  # Opens a pager
+  # @return [void]
+  def self.pager(...)
+    IO.popen("less -FRX", "w", ...)
   end
 
   require "yaml"
