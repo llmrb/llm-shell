@@ -2,6 +2,7 @@
 
 module LLM
   $:.concat Dir[File.join(__dir__, "shell", "internal", "*", "lib")]
+  require "optparse"
   require "io/line"
   require "paint"
   require "reline"
@@ -10,7 +11,6 @@ module LLM
 end
 
 class LLM::Shell
-  require "optparse"
   require "yaml"
   require_relative "function"
   require_relative "shell/command"

@@ -13,3 +13,6 @@
 [submodule "packages/io-line"]
 	path = packages/io-line
 	url = https://github.com/0x1eef/io-line.rb
+[submodule "packages/optparse"]
+	path = packages/optparse
+	url = https://github.com/ruby/optparse
