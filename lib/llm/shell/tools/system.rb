@@ -10,7 +10,7 @@ module LLM::Shell::Tools
       ro, wo = IO.pipe
       re, we = IO.pipe
       Process.wait Process.spawn(command, out: wo, err: we)
-      [wo,we].each(&:close)
+      [wo, we].each(&:close)
       {stderr: re.read, stdout: ro.read}
     end
   end

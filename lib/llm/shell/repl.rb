@@ -69,10 +69,12 @@ class LLM::Shell
       cancels = []
       results = []
       functions.each do |function|
+        args = function.arguments.to_json
         print Paint["system", :bold, :red], " says: ", "\n"
-        print "function: ", function.name, "\n"
-        print "arguments: ", function.arguments.to_h.size, "\n"
-        input = Reline.readline("Do you want to call it ? ", true)
+        print "function ".ljust(20), function.name, "\n"
+        print "arguments ".ljust(20), ((args.size >= 80) ? "#{args[0..79]} ...}" : args), "\n"
+        print "argument count".ljust(20), function.arguments.to_h.size, "\n\n"
+        input = Reline.readline("Should we proceed? ", true)
         puts
         if %w(y yes yep yeah ok).include?(input)
           callables << function
