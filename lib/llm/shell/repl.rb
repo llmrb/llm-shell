@@ -23,8 +23,6 @@ class LLM::Shell
     def setup
       Reline.completion_proc = Completion.to_proc
       chat options.prompt, role: options.default.role
-      files.each { chat ["--- START: #{_1} ---", File.read(_1), "--- END: #{_1} ---"].join("\n") }
-      bot.messages.each(&:read!)
       clear_screen
     end
 
@@ -98,7 +96,6 @@ class LLM::Shell
     def formatter(messages) = Formatter.new(messages)
     def unread = bot.messages.unread
     def functions = bot.functions
-    def files = @options.files
     def clear_screen = console.clear_screen
     def chat(...) = bot.chat(...)
   end

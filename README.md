@@ -151,7 +151,6 @@ Usage: llm-shell [OPTIONS]
     -m, --model [MODEL]      Optional. The name of a model.
     -h, --host [HOST]        Optional. Sometimes required by ollama.
     -o, --port [PORT]        Optional. Sometimes required by ollama.
-    -f, --files [GLOB]       Optional. Glob pattern(s) separated by a comma.
     -r, --prompt [PROMPT]    Optional. The prompt to use.
     -v, --version            Optional. Print the version and exit
 ```

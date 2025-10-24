@@ -26,7 +26,6 @@ def option_parser
     o.on("-m [MODEL]", "--model [MODEL]", "Optional. The name of a model.", Array)
     o.on("-h [HOST]", "--host [HOST]", "Optional. Sometimes required by ollama.", String)
     o.on("-o [PORT]", "--port [PORT]", "Optional. Sometimes required by ollama.", Integer)
-    o.on("-f [GLOB]", "--files [GLOB]", "Optional. Glob pattern(s) separated by a comma.", Array)
     o.on("-r [PROMPT]", "--prompt [PROMPT]", "Optional. The prompt to use.", String)
     o.on("-v", "--version", "Optional. Print the version and exit.")
   end
