@@ -28,7 +28,7 @@ class LLM::Shell
       words = Reline.line_buffer.split(" ")
       command = words[0]
       if commands[command]
-        object = commands[command].object
+        object = commands[command]
         object.respond_to?(:complete) ? object.complete(input) : []
       else
         commands.keys.grep(/\A#{command}/)
