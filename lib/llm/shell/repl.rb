@@ -21,7 +21,6 @@ class LLM::Shell
     # Performs initial setup
     # @return [void]
     def setup
-      Dir[File.join(LLM::Shell.home, "commands", "*.rb")].each { require(_1) }
       Reline.completion_proc = Completion.to_proc
       chat options.prompt, role: options.default.role
       files.each { chat ["--- START: #{_1} ---", File.read(_1), "--- END: #{_1} ---"].join("\n") }

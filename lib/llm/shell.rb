@@ -72,18 +72,19 @@ class LLM::Shell
 
   ##
   # Load commands & tools
+  Dir[File.join(home, "commands", "*.rb")].each { require(_1) }
+  Dir[File.join(home, "tools", "*.rb")].each { require(_1) }
   Dir[File.join(__dir__, "shell", "commands", "*.rb")].each { require(_1) }
   Dir[File.join(__dir__, "shell", "tools", "*.rb")].each { require(_1) }
-  Dir[File.join(home, "tools", "*.rb")].each { require(_1) }
 
   ##
-  # @param [Hash] options
+  # @param [Hash] opts
   # @return [LLM::Shell]
-  def initialize(options)
-    @config  = Config.new(options[:provider])
-    @options = Options.new @config.merge(options), Default.new(options[:provider])
-    @bot  = LLM::Bot.new(llm, {tools: LLM::Shell.tools}.merge(@options.bot))
-    @repl = REPL.new(bot: @bot, options: @options)
+  def initialize(opts)
+    @config  = Config.new(opts[:provider])
+    @options = Options.new @config.merge(opts), Default.new(opts[:provider])
+    @bot  = LLM::Bot.new(llm, {tools: LLM::Shell.tools}.merge(options.bot))
+    @repl = REPL.new(bot:, options:)
   end
 
   ##
