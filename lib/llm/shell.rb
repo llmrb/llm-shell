@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LLM
-  $:.concat Dir[File.join(__dir__, "shell", "internal", "*", "lib")]
+  $:.unshift(*Dir[File.join(__dir__, "shell", "internal", "*", "lib")])
   require "optparse"
   require "io/line"
   require "paint"
