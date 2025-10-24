@@ -56,7 +56,7 @@ class LLM::Shell
 
   TOOLGLOBS = [
     File.join(home, "tools", "*.rb"),
-    File.join(__dir__, "shell", "functions", "*.rb")
+    File.join(__dir__, "shell", "tools", "*.rb")
   ].freeze
   private_constant :TOOLGLOBS
 

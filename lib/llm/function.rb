@@ -15,3 +15,13 @@ class LLM::Function
     @builtin = true
   end
 end
+
+class LLM::Tool
+  def self.builtin!
+    function.builtin!
+  end
+
+  def self.builtin?
+    function.builtin?
+  end
+end

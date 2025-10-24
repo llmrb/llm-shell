@@ -22,7 +22,7 @@ class LLM::Shell
     # @return [void]
     def setup
       LLM::Shell.commands.each { |file| require file }
-      Readline.completion_proc = Completion.to_proc
+      Reline.completion_proc = Completion.to_proc
       chat options.prompt, role: options.default.role
       files.each { chat ["--- START: #{_1} ---", File.read(_1), "--- END: #{_1} ---"].join("\n") }
       bot.messages.each(&:read!)
@@ -52,7 +52,7 @@ class LLM::Shell
     private
 
     def read
-      input = Readline.readline("llm> ", true) || throw(:exit, 0)
+      input = Reline.readline("llm> ", true) || throw(:exit, 0)
       words = input.split(" ")
       if LLM.commands[words[0]]
         cmd  = LLM.commands[words[0]]
@@ -74,7 +74,7 @@ class LLM::Shell
         print Paint["system", :bold, :red], " says: ", "\n"
         print "function: ", function.name, "\n"
         print "arguments: ", function.arguments.to_h.size, "\n"
-        input = Readline.readline("Do you want to call it ? ", true)
+        input = Reline.readline("Do you want to call it ? ", true)
         puts
         if %w(y yes yep yeah ok).include?(input)
           callables << function

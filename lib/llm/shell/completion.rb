@@ -3,7 +3,7 @@
 class LLM::Shell
   class Completion
     ##
-    # Returns a proc suitable for Readline completion.
+    # Returns a proc suitable for Reline completion.
     # @return [Proc]
     def self.to_proc
       new.to_proc
@@ -16,7 +16,7 @@ class LLM::Shell
     end
 
     ##
-    # Returns a proc suitable for Readline completion.
+    # Returns a proc suitable for Reline completion.
     # @return [Proc]
     def to_proc
       method(:complete).to_proc
@@ -25,7 +25,7 @@ class LLM::Shell
     private
 
     def complete(input)
-      words = Readline.line_buffer.split(" ")
+      words = Reline.line_buffer.split(" ")
       command = words[0]
       if commands[command]
         object = commands[command].object
