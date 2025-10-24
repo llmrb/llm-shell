@@ -33,12 +33,6 @@ class LLM::Shell
   end
 
   ##
-  # @return [Array<String>]
-  def self.tools
-    Dir[*TOOLGLOBS]
-  end
-
-  ##
   # @return [Array<LLM::Command>]
   def self.commands
     @commands ||= []
