@@ -11,6 +11,19 @@ module LLM
 end
 
 class LLM::Shell
+  require "yaml"
+  require_relative "shell/tool"
+  require_relative "shell/command"
+  require_relative "shell/markdown"
+  require_relative "shell/renderer"
+  require_relative "shell/formatter"
+  require_relative "shell/default"
+  require_relative "shell/options"
+  require_relative "shell/repl"
+  require_relative "shell/config"
+  require_relative "shell/completion"
+  require_relative "shell/version"
+
   ##
   # Returns the lib/ directory
   # @return [String]
@@ -56,19 +69,6 @@ class LLM::Shell
   def self.pager(...)
     IO.popen("less -FRX", "w", ...)
   end
-
-  require "yaml"
-  require_relative "shell/tool"
-  require_relative "shell/command"
-  require_relative "shell/markdown"
-  require_relative "shell/renderer"
-  require_relative "shell/formatter"
-  require_relative "shell/default"
-  require_relative "shell/options"
-  require_relative "shell/repl"
-  require_relative "shell/config"
-  require_relative "shell/completion"
-  require_relative "shell/version"
 
   ##
   # Load commands & tools
