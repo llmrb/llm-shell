@@ -37,6 +37,14 @@ class LLM::Shell
   end
 
   ##
+  # Returns the lib/ directory
+  # @return [String]
+  def self.root
+    __dir__
+  end
+
+  ##
+  # Returns ${HOME}/.llm-shell directory
   # @return [String]
   def self.home
     File.join Dir.home, ".llm-shell"
@@ -83,7 +91,7 @@ class LLM::Shell
   def tools
     LLM::Shell.tools.map do |path|
       eval File.read(path), TOPLEVEL_BINDING, path, 1
-    end.grep(LLM::Function)
+    end
   end
 
   attr_reader :options, :bot, :repl

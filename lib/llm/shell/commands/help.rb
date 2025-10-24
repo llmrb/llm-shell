@@ -60,7 +60,6 @@ class LLM::Shell::Command
     LLM.command "help" do |cmd|
       cmd.description "Show the help menu"
       cmd.register(self)
-      cmd.builtin!
     end
   end
 end

@@ -40,7 +40,6 @@ class LLM::Shell::Command
     LLM.command "show-chat" do |cmd|
       cmd.description "Show the chat"
       cmd.register(self)
-      cmd.builtin!
     end
   end
 end

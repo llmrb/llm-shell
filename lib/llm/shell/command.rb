@@ -75,14 +75,7 @@ class LLM::Shell
     # @return [Boolean]
     #  Returns true if this is a builtin command
     def builtin?
-      @builtin
-    end
-
-    ##
-    # Mark this command as builtin command
-    # @return [void]
-    def builtin!
-      @builtin = true
+      __FILE__.include?(LLM::Shell.root)
     end
   end
 end

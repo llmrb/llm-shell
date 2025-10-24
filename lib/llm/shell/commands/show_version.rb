@@ -27,7 +27,6 @@ class LLM::Shell::Command
     LLM.command "show-version" do |cmd|
       cmd.description "Show the llm-shell version"
       cmd.register(self)
-      cmd.builtin!
     end
   end
 end

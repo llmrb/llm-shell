@@ -26,7 +26,6 @@ class LLM::Shell::Command
     LLM.command "clear-screen" do |cmd|
       cmd.description "Clear the screen"
       cmd.register(self)
-      cmd.builtin!
     end
   end
 end

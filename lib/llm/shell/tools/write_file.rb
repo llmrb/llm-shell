@@ -4,13 +4,8 @@ module LLM::Shell::Tools
   class WriteFile < LLM::Tool
     name "write-file"
     description "Write the contents of a file"
-    params do |schema|
-      schema.object(
-        path: schema.string.required,
-        content: schema.string.required
-      )
-    end
-    builtin!
+    param :path, String, "The path to a file", required: true
+    param :content, String, "The contents of a file", required: true
 
     def call(path:, content:)
       {ok: true, content: File.binwrite(path, content)}

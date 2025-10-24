@@ -43,7 +43,6 @@ class LLM::Shell::Command
     LLM.command "dir-import" do |cmd|
       cmd.description "Share a directory with the LLM"
       cmd.register(self)
-      cmd.builtin!
     end
   end
 end
