@@ -52,9 +52,7 @@ class LLM::Shell
   end
 
   require "yaml"
-  require_relative "function"
   require_relative "shell/command"
-  require_relative "shell/command/extension"
   require_relative "shell/markdown"
   require_relative "shell/renderer"
   require_relative "shell/formatter"

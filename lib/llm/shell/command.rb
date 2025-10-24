@@ -3,6 +3,14 @@
 class LLM::Shell
   class Command
     ##
+    # Returns true for builtin commands
+    # @return [Boolean]
+    def self.builtin?
+      path, _ = instance_method(:call).source_location
+      path&.include?(LLM::Shell.root)
+    end
+
+    ##
     # @param [Class] klass
     #  A subclass
     # @return [void]
@@ -51,13 +59,6 @@ class LLM::Shell
     # @reurn [void]
     def call(*argv)
       raise NotImplementedError
-    end
-
-    ##
-    # @return [Boolean]
-    #  Returns true if this is a builtin command
-    def builtin?
-      __FILE__.include?(LLM::Shell.root)
     end
 
     private
