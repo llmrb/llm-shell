@@ -22,7 +22,7 @@ class LLM::Shell
       messages.filter_map do |message|
         next unless message.user?
         next unless String === message.content
-        next unless message.content !~ file_pattern
+        next unless message.content !~ LLM::Shell.pattern
         render(message.tap(&:read!))
       end.join("\n")
     end

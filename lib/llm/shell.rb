@@ -51,6 +51,12 @@ class LLM::Shell
     commands.find { _1.name == name }
   end
 
+  ##
+  # @return [Regexp]
+  def self.pattern
+    /\A<file path=(.+?)>/
+  end
+
   require "yaml"
   require_relative "shell/tool"
   require_relative "shell/command"

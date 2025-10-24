@@ -74,10 +74,6 @@ class LLM::Shell
       ].join("\n")
     end
 
-    def file_pattern
-      /\A<file path=(.+?)>/
-    end
-
     def pager(...)
       LLM::Shell.pager(...)
     end
