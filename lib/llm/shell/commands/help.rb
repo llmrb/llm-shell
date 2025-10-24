@@ -45,7 +45,7 @@ class LLM::Shell
     end
 
     def commands = LLM::Shell.commands.sort_by(&:name)
-    def functions = LLM.functions.values.sort_by(&:name)
+    def functions = LLM::Shell.tools
     def name(command, index, bgcolor) = [Paint[" #{index} ", :white, bgcolor, :bold], " ", Paint[command.name, :bold]].join
     def desc(command) = command.description || "No description"
   end

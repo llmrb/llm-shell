@@ -39,9 +39,15 @@ class LLM::Shell
   end
 
   ##
-  # @return [Array<String>]
+  # @return [Array<LLM::Command>]
   def self.commands
     @commands ||= []
+  end
+
+  ##
+  # @return [Array<LLM::Tool>]
+  def self.tools
+    @tools ||= []
   end
 
   ##
@@ -52,6 +58,7 @@ class LLM::Shell
   end
 
   require "yaml"
+  require_relative "shell/tool"
   require_relative "shell/command"
   require_relative "shell/markdown"
   require_relative "shell/renderer"
@@ -64,14 +71,10 @@ class LLM::Shell
   require_relative "shell/version"
 
   ##
-  # Load all commands
+  # Load commands & tools
   Dir[File.join(__dir__, "shell", "commands", "*.rb")].each { require(_1) }
-
-  TOOLGLOBS = [
-    File.join(home, "tools", "*.rb"),
-    File.join(__dir__, "shell", "tools", "*.rb")
-  ].freeze
-  private_constant :TOOLGLOBS
+  Dir[File.join(__dir__, "shell", "tools", "*.rb")].each { require(_1) }
+  Dir[File.join(home, "tools", "*.rb")].each { require(_1) }
 
   ##
   # @param [Hash] options
@@ -79,7 +82,7 @@ class LLM::Shell
   def initialize(options)
     @config  = Config.new(options[:provider])
     @options = Options.new @config.merge(options), Default.new(options[:provider])
-    @bot  = LLM::Bot.new(llm, {tools:}.merge(@options.bot))
+    @bot  = LLM::Bot.new(llm, {tools: LLM::Shell.tools}.merge(@options.bot))
     @repl = REPL.new(bot: @bot, options: @options)
   end
 
@@ -92,13 +95,6 @@ class LLM::Shell
   end
 
   private
-
-  def tools
-    LLM::Shell.tools.map do |path|
-      eval File.read(path), TOPLEVEL_BINDING, path, 1
-    end
-    []
-  end
 
   attr_reader :options, :bot, :repl
   def provider = LLM.method(options.provider)
