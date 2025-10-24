@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 namespace :deps do
+  desc "Initialize git submodules"
+  task :init do
+    sh "git submodule update --init --recursive"
+  end
+
   desc "Install dependencies into place"
-  task :install do
+  task install: %i[init] do
     Dir[File.join("packages", "*")].each do |dir|
       target = File.join(__dir__, "lib", "llm", "shell", "internal", File.basename(dir))
       mkdir_p(target)
@@ -15,12 +20,14 @@ namespace :deps do
 end
 
 namespace :asciinema do
+  desc "Record the terminal with asciinema"
   task :rec, [:outfile] do |t, args|
     outfile = File.join("share", "llm-shell", "casts", args[:outfile])
     Kernel.spawn("asciinema", "rec", outfile)
     Process.wait
   end
 
+  desc "Convert cast to gif"
   task :gif, [:infile, :outfile] do |t, args|
     infile  = File.join("share", "llm-shell", "casts", args[:infile])
     outfile = File.join("share", "llm-shell", "examples", args[:outfile])
