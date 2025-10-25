@@ -31,9 +31,11 @@ class LLM::Shell
     # @return [void]
     def start
       loop do
-        read
-        eval while functions.any?
-        emit
+        catch(:next) do
+          read
+          eval while functions.any?
+          emit
+        end
       rescue LLM::ResponseError => ex
         print Paint[ex.response.class, :red], "\n"
         print ex.response.body, "\n"
@@ -54,6 +56,7 @@ class LLM::Shell
       if cmd = LLM::Shell.find_command(words[0])
         argv = words[1..]
         cmd.new(bot, io).call(*argv)
+        throw(:next)
       else
         chat input.tap { clear_screen }
         io.rewind.print(Paint["Thinking", :bold])

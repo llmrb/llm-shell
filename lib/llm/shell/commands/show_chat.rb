@@ -18,7 +18,6 @@ class LLM::Shell
     def emit
       pager do |io|
         messages.each.with_index do |message, index|
-          next if index <= 1
           io << render(message) << "\n"
         end
       end
