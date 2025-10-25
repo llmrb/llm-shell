@@ -24,7 +24,7 @@ class LLM::Shell
       tool = LLM::Shell.tools.find { _1.name == name }
       if tool
         tool.enable!
-        io.rewind.print "tool enabled"
+        io.rewind.print("tool enabled").end
       else
         raise Error, "unknown tool: #{name}"
       end

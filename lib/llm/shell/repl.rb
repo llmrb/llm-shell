@@ -56,7 +56,7 @@ class LLM::Shell
         argv = words[1..]
         cmd.new(bot, io).call(*argv)
       else
-        chat input.tap { clear_screen }
+        chat(input.tap { clear_screen }, tools:)
         io.rewind.print(Paint["Thinking", :bold])
         unread.tap { io.rewind }
       end
@@ -82,7 +82,7 @@ class LLM::Shell
       end
       results.concat callables.map(&:call)
       results.concat cancels.map(&:cancel)
-      bot.chat(results)
+      bot.chat(results).flush
     end
 
     def emit
@@ -90,6 +90,14 @@ class LLM::Shell
         io.write formatter(unread).format!(:user), "\n"
         io.write formatter(unread).format!(:assistant), "\n"
       end unless unread.empty?
+    end
+
+    ##
+    # @return [Array<LLM::Tool>]
+    def tools
+      LLM::Shell
+        .tools
+        .select(&:enabled?)
     end
 
     attr_reader :bot, :console, :io, :default, :options
