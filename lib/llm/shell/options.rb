@@ -33,7 +33,7 @@ class LLM::Shell
 
     def custom_prompt
       prompt = @options.delete(:prompt)
-      File.join(LLM::Shell.home, "prompts", prompt)
+      File.join(LLM::Shell.home_data, "prompts", prompt)
     end
   end
 end

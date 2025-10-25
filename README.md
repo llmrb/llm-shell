@@ -132,8 +132,6 @@ ollama:
 llamacpp:
   host: localhost
   model: qwen3
-tools:
-  - system
 ```
 
 ## Usage
