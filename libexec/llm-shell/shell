@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative "../../lib/llm/shell"
-
 def main(argv)
   if argv.include?("-v") || argv.include?("--version")
     puts LLM::Shell::VERSION
@@ -32,6 +30,7 @@ def option_parser
 end
 
 excode = catch(:exit) do
+  require_relative "../../lib/llm/shell"
   main(ARGV)
   0
 rescue => ex
