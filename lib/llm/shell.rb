@@ -116,3 +116,7 @@ class LLM::Shell
   def provider = LLM.method(options.provider)
   def llm = provider.call(**options.llm)
 end
+
+module LLM
+  Command = LLM::Shell::Command
+end

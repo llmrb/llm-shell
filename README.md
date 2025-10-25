@@ -82,7 +82,7 @@ See the
 directory for more examples:
 
 ```ruby
-class SayHello < LLM::Shell::Command
+class SayHello < LLM::Command
   name "say-hello"
   description "Say hello to somebody"
 
