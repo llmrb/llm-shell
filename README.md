@@ -40,30 +40,29 @@ usage and feedback.
 
 ## Customization
 
-#### Functions
+#### Tools
 
 > For security and safety reasons, a user must confirm the execution of
 > all function calls before they happen
 
-llm-shell can be extended with your own functions (also known as tool calls).
-This can be done by creating a Ruby file in the `~/.llm-shell/functions/`
-directory &ndash; with one file per function.
 
-The functions are loaded at boot time. The functions are shared with
-the LLM and the LLM can request their execution. The LLM is also made
-aware of a function's return value after it has been called.
+Tools are loaded at boot time. Custom tools can be added to the
+`${HOME}/.local/share/llm-shell/tools/` directory. The tools are
+shared with the LLM and the LLM can request their execution.
+The LLM is also made aware of a tool's return value after
+it has been called.
 See the
-[functions/](lib/llm/shell/functions/)
+[tools/](lib/llm/shell/tools/)
 directory for more examples:
 
 
 ```ruby
-LLM.function(:system) do |fn|
-  fn.description "Run a shell command"
-  fn.params do |schema|
-    schema.object(command: schema.string.required)
-  end
-  fn.define do |command:|
+class System < LLM::Tool
+  name "system"
+  description "Run a system command"
+  param :command, String, "The command to execute", required: true
+
+  def call(command:)
     ro, wo = IO.pipe
     re, we = IO.pipe
     Process.wait Process.spawn(command, out: wo, err: we)
@@ -75,18 +74,20 @@ end
 
 #### Commands
 
-llm-shell can be extended with your own console commands. This can be
-done by creating a Ruby file in the `~/.llm-shell/commands/` directory &ndash;
-with one file per command. The commands are loaded at boot time.
+llm-shell can be extended with your own console commands that take
+precendence over messages sent to the LLM. Custom commands can be
+added to the `${HOME}/.local/share/llm-shell/commands/` directory.
 See the
 [commands/](lib/llm/shell/commands/)
 directory for more examples:
 
 ```ruby
-LLM.command "say-hello" do |cmd|
-  cmd.description "Say hello to somebody"
-  cmd.define do |name|
-    io.rewind.print "Hello #{name}!"
+class SayHello < LLM::Shell::Command
+  name "say-hello"
+  description "Say hello to somebody"
+
+  def call(name)
+    io.rewind.print "Hello, #{name}!"
   end
 end
 ```
@@ -97,14 +98,9 @@ end
 > otherwise you might see unexpected results because llm-shell assumes the LLM
 > will emit markdown.
 
-The first message in a conversation is sometimes known as a "system prompt",
-and it defines the expectations and rules to be followed by an LLM throughout
-a conversation. The default prompt used by llm-shell can be found at
-[default.txt](share/llm-shell/prompts/default.txt).
-
-The prompt can be changed by adding a file to the `~/.llm-shell/prompts/` directory,
-and then choosing it at boot time with the `-r PROMPT`, `--prompt PROMPT` options.
-Generally you probably want to fork [default.txt](share/llm-shell/prompts/default.txt)
+The prompt can be changed by adding a file to the `${HOME}/.local/share/llm-shell/prompts/`
+directory, and then choosing it at boot time with the `-r PROMPT`, `--prompt PROMPT`
+options. Generally you probably want to fork [default.txt](share/llm-shell/prompts/default.txt)
 to conserve the original prompt rules around markdown and files, then modify it to
 suit your own needs and preferences.
 
