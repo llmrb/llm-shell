@@ -11,6 +11,13 @@ class LLM::Shell
     end
 
     ##
+    # Always returns true
+    # @return [Boolean]
+    def self.enabled?
+      true
+    end
+
+    ##
     # @param [Class] klass
     #  A subclass
     # @return [void]

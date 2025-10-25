@@ -28,9 +28,11 @@ class LLM::Shell
 
     def render_functions(io)
       io.print(Paint["Functions", :bold, :underline], "\n\n")
-      render_group(io, "Builtin", functions.select(&:builtin?), :blue)
+      render_group(io, "Builtin (Enabled)", functions.select { |f|  f.builtin? && f.enabled? }, :blue)
+      render_group(io, "Builtin (Disabled)", functions.select { |f|  f.builtin? && !f.enabled? }, :blue)
       io.print("\n")
-      render_group(io, "User", functions.reject(&:builtin?), :blue)
+      render_group(io, "User (Enabled)", functions.select { |f| !f.builtin? && f.enabled? }, :blue)
+      render_group(io, "User (Disabled)", functions.select { |f| !f.builtin? && !f.enabled? }, :blue)
     end
 
     def render_group(io, title, items, color)
@@ -39,7 +41,8 @@ class LLM::Shell
         io.print(Paint["  None available", :yellow], "\n")
       else
         items.each do |item|
-          io.print("  ", Paint[item.name, color, :bold], " - ", item.description || "No description", "\n")
+          status = item.enabled? ? Paint["enabled", :green] : Paint["disabled", :red]
+          io.print("  ", Paint[item.name, color, :bold], " - ", item.description || "No description", " (", status, ")\n")
         end
       end
     end
