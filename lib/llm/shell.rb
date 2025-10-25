@@ -32,10 +32,25 @@ class LLM::Shell
   end
 
   ##
-  # Returns ${HOME}/.llm-shell directory
+  # Returns the directory where configuration files are kept
   # @return [String]
-  def self.home
-    File.join Dir.home, ".llm-shell"
+  def self.home_config
+    if ENV.key?("XDG_CONFIG_HOME")
+      ENV["XDG_CONFIG_HOME"]
+    else
+      File.join Dir.home, ".config"
+    end
+  end
+
+  ##
+  # Returns the directory where commands and tools are kept
+  # @return [String]
+  def self.home_data
+    if ENV.key?("XDG_DATA_HOME")
+      File.join ENV["XDG_DATA_HOME"], ".llm-shell"
+    else
+      File.join Dir.home, ".local", "share", ".llm-shell"
+    end
   end
 
   ##
@@ -72,10 +87,10 @@ class LLM::Shell
 
   ##
   # Load commands & tools
-  Dir[File.join(home, "commands", "*.rb")].each { require(_1) }
-  Dir[File.join(home, "tools", "*.rb")].each { require(_1) }
-  Dir[File.join(__dir__, "shell", "commands", "*.rb")].each { require(_1) }
-  Dir[File.join(__dir__, "shell", "tools", "*.rb")].each { require(_1) }
+  Dir[File.join(home_data, "commands", "*.rb")].each { require(_1) }
+  Dir[File.join(home_data, "tools", "*.rb")].each { require(_1) }
+  Dir[File.join(root, "shell", "commands", "*.rb")].each { require(_1) }
+  Dir[File.join(root, "shell", "tools", "*.rb")].each { require(_1) }
 
   ##
   # @param [Hash] opts

@@ -24,12 +24,11 @@ class LLM::Shell
     private
 
     def yaml
-      return {} unless File.readable?(path)
       @yaml ||= YAML.load_file(path)
     end
 
     def path
-      File.join LLM::Shell.home, "config.yml"
+      File.join LLM::Shell.home_config, "llm-shell.yml"
     end
   end
 end

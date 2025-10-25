@@ -37,7 +37,7 @@ rescue => ex
   print Paint[ex.class, :red, :bold], "\n"
   print ex.message, "\n\n"
   print Paint["Backtrace", :bold], "\n"
-  print ex.backtrace[0..5].join("\n"), "\n"
+  print ex.backtrace[0..7].join("\n"), "\n"
   1
 end
 exit excode
