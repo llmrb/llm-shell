@@ -8,10 +8,10 @@ module LLM
   require "reline"
   require "coderay"
   require "llm"
+  require "tomlrb"
 end
 
 class LLM::Shell
-  require "yaml"
   require_relative "shell/tool"
   require_relative "shell/command"
   require_relative "shell/markdown"

@@ -16,3 +16,6 @@
 [submodule "packages/optparse"]
 	path = packages/optparse
 	url = https://github.com/ruby/optparse
+[submodule "packages/tomlrb"]
+	path = packages/tomlrb
+	url = https://github.com/fbernier/tomlrb

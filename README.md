@@ -106,32 +106,38 @@ suit your own needs and preferences.
 
 ## Settings
 
-#### YAML
 
 The console client can be configured at the command line through option switches,
-or through a YAML file. The YAML file can contain the same options that could be
+or through a TOML file. The TOML file can contain the same options that could be
 specified at the command line. For cloud providers the key option is the only
-required parameter, everything else has defaults. The YAML file is read from the
-path `${HOME}/.llm-shell/config.yml` and it has the following format:
+required parameter, everything else has defaults. The TOML file is read from the
+path `${HOME}/.llm-shell/config.toml` and it has the following format:
 
-```yaml
-# ~/.config/llm-shell.yml
-openai:
-  key: YOURKEY
-gemini:
-  key: YOURKEY
-anthropic:
-  key: YOURKEY
-xai:
-  key: YOURKEY
-deepseek:
-  key: YOURKEY
-ollama:
-  host: localhost
-  model: deepseek-coder:6.7b
-llamacpp:
-  host: localhost
-  model: qwen3
+```toml
+# ~/.config/llm-shell.toml
+
+[openai]
+key = "YOURKEY"
+
+[gemini]
+key = "YOURKEY"
+
+[anthropic]
+key = "YOURKEY"
+
+[xai]
+key = "YOURKEY"
+
+[deepseek]
+key = "YOURKEY"
+
+[ollama]
+host = "localhost"
+model = "deepseek-coder:6.7b"
+
+[llamacpp]
+host = "localhost"
+model = "qwen3"
 ```
 
 ## Usage

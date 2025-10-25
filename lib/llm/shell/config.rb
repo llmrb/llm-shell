@@ -18,17 +18,17 @@ class LLM::Shell
     ##
     # @return [Hash]
     def to_h
-      yaml[@provider] || {}
+      toml[@provider] || {}
     end
 
     private
 
-    def yaml
-      @yaml ||= YAML.load_file(path)
+    def toml
+      @toml ||= Tomlrb.load_file(path)
     end
 
     def path
-      File.join LLM::Shell.home_config, "llm-shell.yml"
+      File.join LLM::Shell.home_config, "llm-shell.toml"
     end
   end
 end
