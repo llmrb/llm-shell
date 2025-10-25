@@ -6,6 +6,13 @@ console that can interact with multiple Large Language Models
 library and a tool to help improve the library through real-world
 usage and feedback.
 
+## Demo
+
+<details>
+  <summary>Show</summary>
+  <img src="share/llm-shell/examples/demo.gif/">
+</details>
+
 ## Features
 
 #### General
@@ -26,17 +33,6 @@ usage and feedback.
 - 📄 Deploys the less pager for long outputs
 - 📝 Advanced Markdown formatting and output
 
-## Demo
-
-<details>
-  <summary>Reveal demo</summary>
-  <img src="share/llm-shell/examples/demo.gif/">
-</details>
-
-<details>
-  <summary>Reveal demo</summary>
-  <img src="share/llm-shell/examples/demo.png/">
-</details>
 
 ## Customization
 
