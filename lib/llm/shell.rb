@@ -98,7 +98,7 @@ class LLM::Shell
   def initialize(opts)
     @config  = Config.new(opts[:provider])
     @options = Options.new @config.merge(opts), Default.new(opts[:provider])
-    @bot  = LLM::Bot.new(llm, {stream: true, tools: LLM::Shell.tools}.merge(options.bot))
+    @bot  = LLM::Bot.new(llm, {stream: true, tools:}.merge(options.bot))
     @repl = REPL.new(bot:, options:)
   end
 
@@ -113,8 +113,26 @@ class LLM::Shell
   private
 
   attr_reader :options, :bot, :repl
-  def provider = LLM.method(options.provider)
-  def llm = provider.call(**options.llm)
+
+  ##
+  # @return [Array<LLM::Tool>]
+  def tools
+    LLM::Shell
+      .tools
+      .select(&:enabled?)
+  end
+
+  ##
+  # @return [Method]
+  def provider
+    LLM.method(options.provider)
+  end
+
+  ##
+  # @return [LLM::Provider]
+  def llm
+    provider.call(**options.llm)
+  end
 end
 
 module LLM
