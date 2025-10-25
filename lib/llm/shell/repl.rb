@@ -22,7 +22,8 @@ class LLM::Shell
     # @return [void]
     def setup
       Reline.completion_proc = Completion.to_proc
-      chat options.prompt, role: options.default.role
+      chat(options.prompt, role: options.default.role).flush
+      unread.each(&:read!)
       clear_screen
     end
 
