@@ -36,7 +36,7 @@ namespace :asciinema do
 
   desc "Convert cast to gif"
   task :gif, [:infile, :outfile] do |t, args|
-    infile  = File.join("share", "llm-shell", "casts", args[:infile])
+    infile  = File.join("share", "llm-shell", "examples", args[:infile])
     outfile = File.join("share", "llm-shell", "examples", args[:outfile])
     Kernel.spawn(
       "agg",
