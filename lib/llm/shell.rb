@@ -47,9 +47,9 @@ class LLM::Shell
   # @return [String]
   def self.home_data
     if ENV.key?("XDG_DATA_HOME")
-      File.join ENV["XDG_DATA_HOME"], ".llm-shell"
+      File.join ENV["XDG_DATA_HOME"], "llm-shell"
     else
-      File.join Dir.home, ".local", "share", ".llm-shell"
+      File.join Dir.home, ".local", "share", "llm-shell"
     end
   end
 
