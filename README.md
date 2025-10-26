@@ -107,7 +107,7 @@ The console client can be configured at the command line through option switches
 or through a TOML file. The TOML file can contain the same options that could be
 specified at the command line. For cloud providers the key option is the only
 required parameter, everything else has defaults. The TOML file is read from the
-path `${HOME}/.llm-shell/config.toml` and it has the following format:
+path `${HOME}/.config/llm-shell.toml` and it has the following format:
 
 ```toml
 # ~/.config/llm-shell.toml
