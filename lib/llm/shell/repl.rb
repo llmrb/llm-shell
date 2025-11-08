@@ -21,10 +21,11 @@ class LLM::Shell
     # Performs initial setup
     # @return [void]
     def setup
-      Reline.completion_proc = Completion.to_proc
-      chat(options.prompt, role: options.default.role).flush
-      unread.each(&:read!)
       clear_screen
+      io.rewind.print(Paint["Loading", :bold])
+      Reline.completion_proc = Completion.to_proc
+      chat(options.prompt, role: options.default.role)
+      unread.each(&:read!)
     end
 
     ##
@@ -56,9 +57,9 @@ class LLM::Shell
         argv = words[1..]
         cmd.new(bot, io).call(*argv)
       else
-        chat(input.tap { clear_screen }, tools:)
+        clear_screen
         io.rewind.print(Paint["Thinking", :bold])
-        unread.tap { io.rewind }
+        chat(input, tools:)
       end
     end
 
@@ -82,7 +83,7 @@ class LLM::Shell
       end
       results.concat callables.map(&:call)
       results.concat cancels.map(&:cancel)
-      bot.chat(results).flush
+      bot.chat(results) unless results.empty?
     end
 
     def emit
