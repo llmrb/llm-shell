@@ -18,8 +18,12 @@ class LLM::Shell
     ##
     # Imports one or more globbed files.
     # @return [void]
-    def call(*files)
-      Dir[*files].each { import(_1) }
+    def call(*globs)
+      files = Dir[*globs]
+      prompt = bot.build_prompt do |prompt|
+        files.each { prompt.user(read(_1)) }
+      end
+      bot.chat(prompt)
     end
   end
 end

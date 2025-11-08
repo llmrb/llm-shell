@@ -19,14 +19,23 @@ class LLM::Shell
     # Recursively imports all files in a directory.
     # @return [void]
     def call(dir)
-      Dir.entries(dir).each do |file|
-        if file == "." || file == ".."
-          next
-        elsif File.directory? File.join(dir, file)
-          call File.join(dir, file)
-        else
-          import File.join(dir, file)
-        end
+      files = Dir.entries(dir)
+      prompt = bot.build_prompt do |prompt|
+        files.each { |file| visit(dir, file, prompt) }
+      end
+      bot.chat(prompt)
+    end
+
+    ##
+    # Visit a file with a prompt
+    # @return [void]
+    def visit(dir, file, prompt)
+      if file == "." || file == ".."
+        return
+      elsif File.directory? File.join(dir, file)
+        call File.join(dir, file)
+      else
+        prompt.user read(File.join(dir, file))
       end
     end
   end

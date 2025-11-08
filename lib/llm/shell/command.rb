@@ -72,9 +72,8 @@ class LLM::Shell
 
     attr_reader :bot, :io
 
-    def import(file)
-      return unless File.file?(file)
-      bot.chat [
+    def read(file)
+      [
         "<file path=\"#{file}\">",
         File.read(file),
         "</file>"
