@@ -16,7 +16,7 @@ class LLM::Shell
     end
 
     ##
-    # Imports one or more globbed files.
+    # Imports a PDF file.
     # @return [void]
     def call(pdf)
       bot.chat bot.local_file(pdf)
