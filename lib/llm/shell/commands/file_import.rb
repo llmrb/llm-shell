@@ -21,14 +21,14 @@ class LLM::Shell
     def call(*globs)
       files = Dir[*globs]
       prompt = bot.build_prompt do |prompt|
-        files.each { |file| handle(prompt, file) }
+        files.each { |file| visit(file, prompt) }
       end
       bot.chat(prompt)
     end
 
     private
 
-    def handle(prompt, file)
+    def visit(file, prompt)
       if File.extname(file) == ".pdf"
         prompt.user bot.local_file(file)
       else
