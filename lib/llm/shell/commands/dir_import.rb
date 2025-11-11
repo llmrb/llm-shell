@@ -31,7 +31,7 @@ class LLM::Shell
     # @return [void]
     def visit(dir, file, prompt)
       if file == "." || file == ".."
-        return
+        nil
       elsif File.directory? File.join(dir, file)
         call File.join(dir, file)
       else

@@ -8,7 +8,9 @@ class LLM::Shell
     ##
     # Clears the screen
     # @return [void]
-    def call = clear_screen
+    def call
+      clear_screen
+    end
 
     private
 

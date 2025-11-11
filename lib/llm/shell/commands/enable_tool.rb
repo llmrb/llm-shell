@@ -3,7 +3,6 @@
 class LLM::Shell
   class Command::EnableTool < Command
     Error = Class.new(RuntimeError)
-
     name "enable-tool"
     description "Enable a tool"
 

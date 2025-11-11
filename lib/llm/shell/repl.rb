@@ -21,11 +21,13 @@ class LLM::Shell
     # Performs initial setup
     # @return [void]
     def setup
-      clear_screen
-      io.rewind.print(Paint["Loading", :bold])
-      Reline.completion_proc = Completion.to_proc
-      chat(options.prompt, role: options.default.role)
-      unread.each(&:read!)
+      IO.console.noecho do
+        clear_screen
+        io.rewind.print(Paint["Loading", :bold])
+        Reline.completion_proc = Completion.to_proc
+        chat(options.prompt, role: options.default.role)
+        unread.each(&:read!)
+      end
     end
 
     ##
