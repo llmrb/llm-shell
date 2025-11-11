@@ -29,7 +29,8 @@ class LLM::Shell
     private
 
     def visit(file, prompt)
-      if File.extname(file) == ".pdf"
+      exts = %w[.pdf .png .jpg .jpeg]
+      if exts.include?(File.extname(file))
         prompt.user bot.local_file(file)
       else
         prompt.user read(file)
